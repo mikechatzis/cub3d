@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/03/23 18:46:40 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/03/25 17:48:09 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@ int	key_hook(int keycode, t_data *game)
 	return (0);
 }
 
+/* This function(s) needs to take and split the values:
+
+NO ./path_to_the_north_texture
+SO ./path_to_the_south_texture
+WE ./path_to_the_west_texture
+EA ./path_to_the_east_texture
+
+F 220,100,0
+C 225,30,0
+
+and also check if if the name and order (NO, SO, WE, EA, F, C) is correct and the path maybe
+we can check later. Also should be checked if empty line is between paths
+and colours and map. 
+*/
 int	arg_check(t_data *game, int mfd)
 {
 	char	*temp;
@@ -35,21 +49,12 @@ int	arg_check(t_data *game, int mfd)
 		return (0);
 	while (i <= 7)
 	{
-		// if (i <= 3)
-		// {
-		// 	game->textures[i][0] = ft_split(temp, ' ')[0];
-		// 	game->textures[i][1] = ft_split(temp, ' ')[1];
-		// }
 		temp = get_next_line(mfd);
+		if (i <= 3)
+			game->textures[i] = ft_split(temp, ' ')[1];
 		free(temp);
 		i++;
 	}
-	// int j = 0;
-	// while (j < 4)
-	// {
-	// 	printf("%s\n", game->textures[j][]);
-	// 	j++;
-	// }
 	return (1);
 }
 

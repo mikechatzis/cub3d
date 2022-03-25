@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/03/23 18:45:33 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/03/25 17:12:43 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ typedef struct s_data
 	int		lc;
 	int		player;
 	int		**map;
-	char	**textures[4];
-	int		*fc;
+	int		*fc[3];
 	char	*map_file;
 	int		ppos_x;
 	int		ppos_y;
-	char		pdir;
+	char	pdir;
+	char	*textures[5];
 }				t_data;
 
 // make_map.c
