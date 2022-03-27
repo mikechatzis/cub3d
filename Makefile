@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+         #
+#    By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/15 20:17:37 by ekraujin          #+#    #+#              #
-#    Updated: 2022/03/21 18:04:18 by ekraujin         ###   ########.fr        #
+#    Updated: 2022/03/27 16:38:53 by mchatzip         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = main.c error.c make_map.c check_map.c
+SRC = main.c error.c make_map.c check_map.c error2.c init.c
 
 OBJ = $(SRC:.c=.o)
 

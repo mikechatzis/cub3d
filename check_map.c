@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 18:04:24 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/03/25 17:09:21 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/03/27 16:07:27 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	line_check(t_data *game, int line)
 		if (game->map[line][i] == '0' && \
 		((game->map[line - 1][i] != '1' && game->map[line - 1][i] != '0') \
 		|| (game->map[line + 1][i] != '1' && game->map[line + 1][i] != '0')))
-			return(0);
+			return (0);
 		i++;
 	}
 	if (game->map[line][i - 1] != ' ' && game->map[line][i - 1] != '1')

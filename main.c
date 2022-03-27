@@ -3,18 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/03/25 17:48:09 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/03/27 16:47:23 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+static bool	is_dir(const char *path)
+{
+	struct stat	path_stat;
+
+	stat(path, &path_stat);
+	return (S_ISDIR(path_stat.st_mode));
+}
+
 int	finish_game(t_data *game)
 {
 	free_map(game);
+	freedirec2(game);
 	write(1, "Game closed!\n", 13);
 	exit(0);
 }
@@ -26,34 +35,31 @@ int	key_hook(int keycode, t_data *game)
 	return (0);
 }
 
-/* This function(s) needs to take and split the values:
-
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
-
-F 220,100,0
-C 225,30,0
-
-and also check if if the name and order (NO, SO, WE, EA, F, C) is correct and the path maybe
-we can check later. Also should be checked if empty line is between paths
-and colours and map. 
-*/
 int	arg_check(t_data *game, int mfd)
 {
 	char	*temp;
-	int		i = 0;
-	
-	if (!ft_strncmp(game->map_file + (ft_strlen(game->map_file) - 5), ".cub", 5))
+	int		i;
+	bool	b;
+
+	i = -1;
+	if (!ft_strncmp(game->map_file
+			+ (ft_strlen(game->map_file) - 5), ".cub", 5))
 		return (0);
-	while (i <= 7)
+	while (++i <= 7)
 	{
 		temp = get_next_line(mfd);
-		if (i <= 3)
-			game->textures[i] = ft_split(temp, ' ')[1];
+		if (i <= 3 && ft_strcmp(temp, "\n"))
+			b = get_textures(game, temp, i);
+		else if (i == 5 || i == 6 && ft_strcmp(temp, "\n"))
+			continue ;
+		else if (i <= 0 && i >= 7 && !ft_strcmp(temp, "\n"))
+		{
+			free(temp);
+			return (0);
+		}
 		free(temp);
-		i++;
+		if (!b)
+			return (0);
 	}
 	return (1);
 }
@@ -61,12 +67,17 @@ int	arg_check(t_data *game, int mfd)
 int	main(int argc, char **argv)
 {
 	t_data	game;
-	int	mfd;
+	int		mfd;
 
-	game.map_file = argv[1];
+	initialize(&game, argv);
 	mfd = open(game.map_file, O_RDONLY);
+	if (mfd == -1 || is_dir(game.map_file))
+	{
+		perror(game.map_file);
+		return (1);
+	}
 	if (argc != 2 || !arg_check(&game, mfd) || mfd <= 0)
-		invalid_arg();
+		invalid_arg(&game);
 	if (!assign_map(&game, mfd))
 		invalid_map_values();
 	if (!check_map(&game))
