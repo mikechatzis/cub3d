@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:40:41 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/03/27 16:47:46 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:19:55 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ void	make_array(t_data *game)
 		temp = get_next_line(mfd);
 		i++;
 	}
-	free(temp);
 	close(mfd);
 }
 
@@ -72,6 +71,11 @@ int	line_val_check(t_data *game, char *line)
 	int	i;
 
 	i = 0;
+	if (line[i] == '\n')
+	{
+		free(line);
+		return (0);
+	}
 	while (line[i] && line[i] != '\n')
 	{
 		if (line[i] == 'N' || line[i] == 'E'

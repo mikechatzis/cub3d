@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/03/27 16:47:23 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/03/27 17:19:40 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	arg_check(t_data *game, int mfd)
 			b = get_textures(game, temp, i);
 		else if (i == 5 || i == 6 && ft_strcmp(temp, "\n"))
 			continue ;
-		else if (i <= 0 && i >= 7 && !ft_strcmp(temp, "\n"))
+		else if (i >= 0 && i <= 3)
 		{
 			free(temp);
 			return (0);
@@ -71,12 +71,8 @@ int	main(int argc, char **argv)
 
 	initialize(&game, argv);
 	mfd = open(game.map_file, O_RDONLY);
-	if (mfd == -1 || is_dir(game.map_file))
-	{
-		perror(game.map_file);
-		return (1);
-	}
-	if (argc != 2 || !arg_check(&game, mfd) || mfd <= 0)
+	if (argc != 2 || !arg_check(&game, mfd)
+		|| mfd <= 0 || is_dir(game.map_file))
 		invalid_arg(&game);
 	if (!assign_map(&game, mfd))
 		invalid_map_values();
