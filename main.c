@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/03 15:33:07 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/03 17:48:07 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	key_hook(int keycode, t_data *game)
 {
 	if (keycode == ESC)
 		finish_game(game);
+	if (keycode == UP || keycode == DOWN || keycode == LEFT || keycode == RIGHT)
+		move(game, keycode);
 	return (0);
 }
 

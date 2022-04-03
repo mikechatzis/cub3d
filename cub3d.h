@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/03 15:57:09 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/03 18:00:30 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,15 @@ int		assign_map(t_data *game, int mfd);
 
 //draw map
 void	draw_map(t_data *game);
+void	draw_wall(t_data *game, int x_start, int y_start, int rgb);
 int		create_trgb(int t, int r, int g, int b);
+
+//player move
+void	move(t_data *game, int keycode);
 
 // check_map.c
 int		check_map(t_data *game);
+
 
 // error.c
 void	invalid_arg(t_data *game);
