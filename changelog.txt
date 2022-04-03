@@ -15,9 +15,10 @@
 4) Added a wall drawer that reads map array and draws wall blocks of x*y dimensions(modifiable) and of any
 	rgb color. It also draws the character start position block at a different rgb color of choice.
 
-5) Added the create_trgb function. It returns an int representing a color based on given transparency, red,
+5) Character can now move in the 2d world. No collision handled yet.
+
+6) Added the create_trgb function. It returns an int representing a color based on given transparency, red,
 	green and blue values.
 
 # NEXT STEP #
-Implement character movement in the 2d plane (1st only horizontal/vertical)
 Properly cast a single ray from character that stops upon hitting a wall, in the 2d plane.
