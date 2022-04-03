@@ -6,7 +6,7 @@
 #    By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/15 20:17:37 by ekraujin          #+#    #+#              #
-#    Updated: 2022/03/27 16:38:53 by mchatzip         ###   ########.fr        #
+#    Updated: 2022/04/03 15:29:37 by mchatzip         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SRC = main.c error.c make_map.c check_map.c error2.c init.c
+SRC = main.c error.c make_map.c check_map.c error2.c init.c error3.c draw_map_2d.c
 
 OBJ = $(SRC:.c=.o)
 

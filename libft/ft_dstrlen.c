@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_dstrlen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/03 14:57:38 by mchatzip         ###   ########.fr       */
+/*   Created: 2021/11/21 12:52:53 by ekraujin          #+#    #+#             */
+/*   Updated: 2022/04/01 14:31:05 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-size_t	len_no_n(char *s)
+size_t	ft_dstrlen(char **s)
 {
-	size_t	len;
+	size_t	i;
 
-	len = 0;
-	while (s[len] && s[len] != '\n')
-		len++;
-	return (len);
-}
-
-void	initialize(t_data *game, char **argv)
-{
-	game->l_max_len = 0;
-	game->map_file = argv[1];
-	game->textures = ft_calloc(4, sizeof(char *));
+	i = 0;
+	while (*s)
+	{
+		if (!*s)
+			return (i);
+		s++;
+		i++;
+	}
+	return (i);
 }

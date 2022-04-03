@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 12:02:30 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/03/27 15:19:15 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/01 15:07:14 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 int		ft_strcmp(const char *s1, const char *s2);
 char	*ft_strcpy(char *dest, char *src);
+size_t	ft_dstrlen(char **s);
+void	ft_freedstring(char **s);
 
 typedef struct s_list
 {

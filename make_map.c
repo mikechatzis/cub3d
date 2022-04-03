@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:40:41 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/03/27 17:19:55 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/03 15:08:19 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,13 @@ void	make_line(t_data *game, char *temp, int mfd, int i)
 	int		j;
 
 	len = len_no_n(temp);
-	game->map[i] = malloc(len * sizeof(size_t));
+	if (len > game->l_max_len)
+		game->l_max_len = len;
+	game->map[i] = ft_calloc(len + 1, sizeof(char));
 	j = -1;
 	while (++j <= len)
 	{
-		game->map[i][j] = (int)temp[j];
+		game->map[i][j] = temp[j];
 		if (i == game->ppos_y && j == game->ppos_x)
 			game->map[i][j] = '0';
 	}
@@ -51,7 +53,7 @@ void	make_array(t_data *game)
 
 	i = -1;
 	len = 0;
-	game->map = malloc(game->lc * sizeof(int *));
+	game->map = ft_calloc(game->lc + 1, sizeof(char *));
 	mfd = open(game->map_file, O_RDONLY);
 	get_to_map(mfd);
 	temp = get_next_line(mfd);
