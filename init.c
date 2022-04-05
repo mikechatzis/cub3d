@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/04 19:37:28 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/05 15:12:51 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ size_t	len_no_n(char *s)
 
 void	initialize(t_data *game, char **argv)
 {
-	game->angle = PI/2;
+	game->dirX = 0;
+	game->dirY = -1;
 	game->l_max_len = 0;
 	game->map_file = argv[1];
 	game->textures = ft_calloc(4, sizeof(char *));

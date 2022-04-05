@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/04 19:35:24 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/05 15:13:40 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ typedef struct s_data
 	char	pdir;
 	char	**textures;
 	int		colors[6];
+	double	dirX;
+	double	dirY;
+	double	oldDirX;
 }				t_data;
 
 // make_map.c
@@ -61,6 +64,7 @@ int		assign_map(t_data *game, int mfd);
 void	draw_map(t_data *game);
 void	draw_wall(t_data *game, int x_start, int y_start, int rgb);
 int		create_trgb(int t, int r, int g, int b);
+void	draw_character(t_data *game, int rgb);
 
 //player move
 void	move(t_data *game, int keycode);

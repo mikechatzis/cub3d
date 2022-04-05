@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/04 19:19:37 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/05 15:12:37 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,11 @@ int	main(int argc, char **argv)
 	game.mlx_win = mlx_new_window
 		(game.mlx, game.l_max_len * 60, game.lc * 60, "cub3d");
 	draw_map(&game);
+<<<<<<< HEAD
 	// face_direction(&game);
+=======
+	face_direction(&game);
+>>>>>>> f19cc649b33d63ad257ffdaf4078f4e46b15716f
 	mlx_key_hook(game.mlx_win, key_hook, &game);
 	mlx_hook(game.mlx_win, ON_DESTROY, 0, finish_game, &game);
 	mlx_loop(game.mlx);
