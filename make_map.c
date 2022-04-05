@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   make_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:40:41 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/05 15:22:05 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/05 19:25:32 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	line_val_check(t_data *game, char *line)
 		{
 			game->ppos_y = game->lc;
 			game->ppos_x = i;
-			game->pdir = (int)line[i];
+			game->pdir = line[i];
 			++game->player;
 		}
 		else if (line[i] != '1' && line[i] != '0' && line[i] != ' ')

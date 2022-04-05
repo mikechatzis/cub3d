@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/05 15:13:40 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/05 20:10:17 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ enum {
 
 typedef struct s_data
 {	
+	int		check;
 	void	*mlx;
 	void	*mlx_win;
 	int		lc;
@@ -59,6 +60,7 @@ typedef struct s_data
 
 // make_map.c
 int		assign_map(t_data *game, int mfd);
+void	direction_init(t_data *game);
 
 //draw map
 void	draw_map(t_data *game);

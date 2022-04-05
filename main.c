@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/05 17:00:31 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/05 19:27:44 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	main(int argc, char **argv)
 	if (!check_map(&game))
 		invalid_map(&game);
 	close(mfd);
+	direction_init(&game);
 	game.mlx = mlx_init();
 	game.mlx_win = mlx_new_window
 		(game.mlx, game.l_max_len * 60, game.lc * 60, "cub3d");

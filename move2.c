@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/05 19:12:49 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/05 20:14:12 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,20 @@ void	face_direction(t_data *game)
 		if ((!((int)(game->ppos_x + game->dirX * i) % 60)
 			|| !((int)(game->ppos_y + game->dirY * i) % 60)))
 		{
-			printf("%lf, %lf\n", game->dirX, game->dirY);
-			if (game->dirX < 0 && game->dirY < 0)
+			if (!game->check)
+			{
+				if (game->pdir == 'S' || game->pdir == 'E')
+				{
+					x = abs((int)(game->ppos_x + game->dirX * i + 1) / 60);
+					y = abs((int)(game->ppos_y + game->dirY * i + 1) / 60);
+				}
+				else if (game->pdir == 'N' || game->pdir == 'W')
+				{
+					x = abs((int)(game->ppos_x + game->dirX * i - 1) / 60);
+					y = abs((int)(game->ppos_y + game->dirY * i - 1) / 60);
+				}
+			}
+			else if (game->dirX < 0 && game->dirY < 0)
 			{
 				x = abs((int)(game->ppos_x + game->dirX * i - 1) / 60);
 				y = abs((int)(game->ppos_y + game->dirY * i - 1) / 60);

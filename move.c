@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/05 18:45:27 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/05 20:11:07 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ void	move3(t_data *game, int keycode)
 {
 	if (keycode == RIGHT)
 	{
-		game->ppos_x += game->dirY * 15 + 0.0001;
-		game->ppos_y -= game->dirX * 15 + 0.0001;
+		game->ppos_x -= game->dirY * 15;
+		game->ppos_y += game->dirX * 15;
 		draw_character(game, 255);
 		face_direction(game);
 	}
 	if (keycode == LEFT)
 	{
-		game->ppos_x -= game->dirY * 15 + 0.0001;
-		game->ppos_y += game->dirX * 15 + 0.0001;
+		game->ppos_x += game->dirY * 15;
+		game->ppos_y -= game->dirX * 15;
 		draw_character(game, 255);
 		face_direction(game);
 	}
@@ -41,6 +41,7 @@ void	move2(t_data *game, int keycode)
 			+ game->dirY * cos((float)-0.1);
 		draw_character(game, 255);
 		face_direction(game);
+		game->check = 1;
 	}
 	if (keycode == STRAFE_R)
 	{
@@ -51,6 +52,7 @@ void	move2(t_data *game, int keycode)
 			+ game->dirY * cos((float)0.1);
 		draw_character(game, 255);
 		face_direction(game);
+		game->check = 1;
 	}
 	move3(game, keycode);
 }

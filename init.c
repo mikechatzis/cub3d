@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/05 15:12:51 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/05 20:10:26 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,34 @@ size_t	len_no_n(char *s)
 	return (len);
 }
 
+void	direction_init(t_data *game)
+{
+	if (game->pdir == 'N')
+	{
+		game->dirX = 0;
+		game->dirY = -1;
+	}
+	else if (game->pdir == 'E')
+	{
+		game->dirX = 1;
+		game->dirY = 0;
+	}
+	else if (game->pdir == 'W')
+	{
+		game->dirX = -1;
+		game->dirY = 0;
+	}
+	else
+	{
+		game->dirX = 0;
+		game->dirY = 1;
+	}
+
+}
+
 void	initialize(t_data *game, char **argv)
 {
-	game->dirX = 0;
-	game->dirY = -1;
+	game->check = 0;
 	game->l_max_len = 0;
 	game->map_file = argv[1];
 	game->textures = ft_calloc(4, sizeof(char *));
