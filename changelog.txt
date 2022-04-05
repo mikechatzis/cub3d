@@ -1,0 +1,29 @@
+# CHANGES AS OF April 03 2022 #
+
+1) Added value: int l_max_len to struct. Represents the lenght of the longest line found in map.
+
+2) Modified int **map to char **map in struct and changed the mallocs to callocs of appropriate size.
+	This was done for easier read while drawing the map (we can use the NULL pointer and '\0' termination
+	to exit the loops).
+
+4) Floor and Ceiling colors are now read from map file and stored in struct at int colors[6] array. 
+	Any diversion from the specific map format returns an error appropriately. Whitespace is ignored.
+
+3) mlx window is now of variable size, based on map size (win_width = l_max_len * block width 
+														  win_height =	lc * block_height).
+
+4) Added a wall drawer that reads map array and draws wall blocks of x*y dimensions(modifiable) and of any
+	rgb color. It also draws the character start position block at a different rgb color of choice.
+
+5) Character can now move in the 2d world. No collision handled yet.
+
+6) Added the create_trgb function. It returns an int representing a color based on given transparency, red,
+	green and blue values.
+
+# NEXT STEP #
+Properly cast a single ray from character that stops upon hitting a wall, in the 2d plane.
+
+
+400 = (x - ppos_x)^2 + (y - ppos_y)^2
+sin = x / 400 -> x = 400 * sin
+				 y = 400 * cos

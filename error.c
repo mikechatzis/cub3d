@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:16:53 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/03/21 18:11:20 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/03/27 16:15:41 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	invalid_arg(void)
+void	invalid_arg(t_data *game)
 {
+	freedirec2(game);
 	write(1, "Error\nInvalid argument.\n", 24);
 	exit(0);
 }
