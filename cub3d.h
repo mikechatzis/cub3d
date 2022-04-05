@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/03 18:00:30 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/04 19:35:24 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+#include  <math.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <stdbool.h>
@@ -27,6 +28,9 @@
 # define LEFT 0
 # define RIGHT 2
 # define ESC 53
+# define STRAFE_L 123
+# define STRAFE_R 124
+# define PI 3.14159265359
 
 enum {
 	ON_DESTROY = 17
@@ -44,6 +48,7 @@ typedef struct s_data
 	char	*map_file;
 	int		ppos_x;
 	int		ppos_y;
+	double	angle;
 	char	pdir;
 	char	**textures;
 	int		colors[6];
@@ -63,7 +68,6 @@ void	move(t_data *game, int keycode);
 // check_map.c
 int		check_map(t_data *game);
 
-
 // error.c
 void	invalid_arg(t_data *game);
 void	invalid_top(void);
@@ -75,5 +79,6 @@ size_t	len_no_n(char *s);
 void	initialize(t_data *game, char **argv);
 bool	get_textures(t_data *game, char const *line, int i);
 bool	get_colors(t_data *game, char *line, int i);
+void	face_direction(t_data *game);
 
 #endif

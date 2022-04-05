@@ -22,3 +22,8 @@
 
 # NEXT STEP #
 Properly cast a single ray from character that stops upon hitting a wall, in the 2d plane.
+
+
+400 = (x - ppos_x)^2 + (y - ppos_y)^2
+sin = x / 400 -> x = 400 * sin
+				 y = 400 * cos

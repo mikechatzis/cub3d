@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/03 17:48:07 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/04 19:19:37 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	key_hook(int keycode, t_data *game)
 {
 	if (keycode == ESC)
 		finish_game(game);
-	if (keycode == UP || keycode == DOWN || keycode == LEFT || keycode == RIGHT)
+	else
 		move(game, keycode);
 	return (0);
 }
@@ -85,6 +85,7 @@ int	main(int argc, char **argv)
 	game.mlx_win = mlx_new_window
 		(game.mlx, game.l_max_len * 60, game.lc * 60, "cub3d");
 	draw_map(&game);
+	// face_direction(&game);
 	mlx_key_hook(game.mlx_win, key_hook, &game);
 	mlx_hook(game.mlx_win, ON_DESTROY, 0, finish_game, &game);
 	mlx_loop(game.mlx);

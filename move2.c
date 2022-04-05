@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   move2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/04 19:37:28 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/04 17:50:08 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-size_t	len_no_n(char *s)
+void	face_direction(t_data *game)
 {
-	size_t	len;
+	int		y;
+	short	i;
 
-	len = 0;
-	while (s[len] && s[len] != '\n')
-		len++;
-	return (len);
-}
-
-void	initialize(t_data *game, char **argv)
-{
-	game->angle = PI/2;
-	game->l_max_len = 0;
-	game->map_file = argv[1];
-	game->textures = ft_calloc(4, sizeof(char *));
+	y = game->ppos_y - 30;
+	i = 0;
+	while (i++ < 60)
+		mlx_pixel_put(game->mlx, game->mlx_win, game->ppos_x + 30,
+			y++, create_trgb(0, 0, 100, 0));
 }
