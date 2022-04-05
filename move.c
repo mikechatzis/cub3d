@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/05 18:27:26 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/05 18:45:27 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,20 @@ void	move2(t_data *game, int keycode)
 	if (keycode == STRAFE_L)
 	{
 		game->oldDirX = game->dirX;
-		game->dirX = game->dirX * cos((float)-0.2)
-			- game->dirY * sin((float)-0.2);
-		game->dirY = game->oldDirX * sin((float)-0.2)
-			+ game->dirY * cos((float)-0.2);
+		game->dirX = game->dirX * cos((float)-0.1)
+			- game->dirY * sin((float)-0.1);
+		game->dirY = game->oldDirX * sin((float)-0.1)
+			+ game->dirY * cos((float)-0.1);
 		draw_character(game, 255);
 		face_direction(game);
 	}
 	if (keycode == STRAFE_R)
 	{
 		game->oldDirX = game->dirX;
-		game->dirX = game->dirX * cos((float)0.2)
-			- game->dirY * sin((float)0.2);
-		game->dirY = game->oldDirX * sin((float)0.2)
-			+ game->dirY * cos((float)0.2);
+		game->dirX = game->dirX * cos((float)0.1)
+			- game->dirY * sin((float)0.1);
+		game->dirY = game->oldDirX * sin((float)0.1)
+			+ game->dirY * cos((float)0.1);
 		draw_character(game, 255);
 		face_direction(game);
 	}
