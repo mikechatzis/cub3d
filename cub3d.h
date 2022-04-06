@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/06 18:20:09 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/06 18:38:07 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	draw_character(t_data *game, int rgb);
 //player move
 void	move(t_data *game, int keycode);
 void	cast_rays(t_data *game);
+bool	wall_colision_ray(t_data *game);
+bool	wall_colision(t_data *game);
 
 // check_map.c
 int		check_map(t_data *game);

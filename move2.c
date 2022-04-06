@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/06 18:21:14 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/06 19:06:13 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,27 @@ void	face_direction(t_data *game)
 		mlx_pixel_put(game->mlx, game->mlx_win, game->ppos_x + game->dirx * i,
 			game->ppos_y + game->diry * i, create_trgb(0, 0, 60, 0));
 	}
+}
+
+bool	wall_colision_ray(t_data *game)
+{
+	size_t	i;
+
+	i = -1;
+	while (++i < 17)
+	{
+		if ((!((int)(game->ppos_x + game->dirx * i) % 60)
+			|| !((int)(game->ppos_y + game->diry * i) % 60)))
+		{
+			if (!game->check)
+				check(game, i);
+			else
+				check2(game, i);
+			if (game->map[game->y][game->x] == '1')
+				return (1);
+		}
+		mlx_pixel_put(game->mlx, game->mlx_win, game->ppos_x + game->dirx * i,
+			game->ppos_y + game->diry * i, create_trgb(0, 60, 0, 0));
+	}
+	return (0);
 }
