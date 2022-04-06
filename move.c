@@ -6,13 +6,13 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/05 20:11:07 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:27:09 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	move3(t_data *game, int keycode)
+static void	move3(t_data *game, int keycode)
 {
 	if (keycode == RIGHT)
 	{
@@ -30,7 +30,7 @@ void	move3(t_data *game, int keycode)
 	}
 }
 
-void	move2(t_data *game, int keycode)
+static void	move2(t_data *game, int keycode)
 {
 	if (keycode == STRAFE_L)
 	{

@@ -6,13 +6,13 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 18:04:24 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/05 19:26:17 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:22:19 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	check_top_n_bot(t_data *game, int line)
+static int	check_top_n_bot(t_data *game, int line)
 {
 	int	i;
 
@@ -26,7 +26,7 @@ int	check_top_n_bot(t_data *game, int line)
 	return (1);
 }
 
-int	line_check(t_data *game, int line)
+static int	line_check(t_data *game, int line)
 {
 	int	i;
 

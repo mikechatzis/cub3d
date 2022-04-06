@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map_2d.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:16:53 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/05 17:00:25 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:23:00 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	draw_wall(t_data *game, int x_start, int y_start, int rgb)
 	}
 }
 
-void	draw_map2(t_data *game, int x, int y)
+static void	draw_map2(t_data *game, int x, int y)
 {
 	game->ppos_x = x;
 	game->ppos_y = y;

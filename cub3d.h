@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/05 20:10:17 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:28:43 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,6 @@
 # define STRAFE_R 124
 # define PI 3.14159265359
 
-enum {
-	ON_DESTROY = 17
-};
-
 typedef struct s_data
 {	
 	int		check;
@@ -58,18 +54,25 @@ typedef struct s_data
 	double	oldDirX;
 }				t_data;
 
-// make_map.c
-int		assign_map(t_data *game, int mfd);
+// init.c
+size_t	len_no_n(char *s);
+void	initialize(t_data *game, char **argv);
 void	direction_init(t_data *game);
 
-//draw map
+// make_map.c
+int		assign_map(t_data *game, int mfd);
+
+//draw_map_2d.c
 void	draw_map(t_data *game);
 void	draw_wall(t_data *game, int x_start, int y_start, int rgb);
 int		create_trgb(int t, int r, int g, int b);
 void	draw_character(t_data *game, int rgb);
 
-//player move
+// move.c
 void	move(t_data *game, int keycode);
+
+// move2.c
+void	face_direction(t_data *game);
 
 // check_map.c
 int		check_map(t_data *game);
@@ -80,11 +83,12 @@ void	invalid_top(void);
 void	invalid_map_values(void);
 void	invalid_map(t_data *game);
 void	free_map(t_data *game);
+
+// error2.c
 void	freedirec2(t_data *game);
-size_t	len_no_n(char *s);
-void	initialize(t_data *game, char **argv);
 bool	get_textures(t_data *game, char const *line, int i);
+
+// error3.c
 bool	get_colors(t_data *game, char *line, int i);
-void	face_direction(t_data *game);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/05 19:27:44 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:25:24 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static bool	is_dir(const char *path)
 	return (S_ISDIR(path_stat.st_mode));
 }
 
-int	finish_game(t_data *game)
+static int	finish_game(t_data *game)
 {
 	free_map(game);
 	freedirec2(game);
@@ -28,7 +28,7 @@ int	finish_game(t_data *game)
 	exit(0);
 }
 
-int	key_hook(int keycode, t_data *game)
+static int	key_hook(int keycode, t_data *game)
 {
 	if (keycode == ESC)
 		finish_game(game);
@@ -37,7 +37,7 @@ int	key_hook(int keycode, t_data *game)
 	return (0);
 }
 
-int	arg_check(t_data *game, int mfd)
+static int	arg_check(t_data *game, int mfd)
 {
 	char	*temp;
 	int		i;
@@ -87,7 +87,7 @@ int	main(int argc, char **argv)
 		(game.mlx, game.l_max_len * 60, game.lc * 60, "cub3d");
 	draw_map(&game);
 	face_direction(&game);
-	mlx_key_hook(game.mlx_win, key_hook, &game);
-	mlx_hook(game.mlx_win, ON_DESTROY, 0, finish_game, &game);
+	mlx_hook(game.mlx_win, 2, 1L<<1, key_hook, &game);
+	mlx_hook(game.mlx_win, 17, 0, finish_game, &game);
 	mlx_loop(game.mlx);
 }
