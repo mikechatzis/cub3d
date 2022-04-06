@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/06 14:28:43 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/06 21:05:40 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-#include  <math.h>
+# include  <math.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <stdbool.h>
@@ -49,9 +49,11 @@ typedef struct s_data
 	char	pdir;
 	char	**textures;
 	int		colors[6];
-	double	dirX;
-	double	dirY;
-	double	oldDirX;
+	int		x;
+	int		y;
+	double	dirx;
+	double	diry;
+	double	olddirx;
 }				t_data;
 
 // init.c
@@ -70,6 +72,9 @@ void	draw_character(t_data *game, int rgb);
 
 // move.c
 void	move(t_data *game, int keycode);
+void	cast_rays(t_data *game);
+bool	wall_colision_ray(t_data *game);
+bool	wall_colision(t_data *game);
 
 // move2.c
 void	face_direction(t_data *game);
