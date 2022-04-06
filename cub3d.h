@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/05 20:10:17 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/06 18:20:09 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,11 @@ typedef struct s_data
 	char	pdir;
 	char	**textures;
 	int		colors[6];
-	double	dirX;
-	double	dirY;
-	double	oldDirX;
+	int		x;
+	int		y;
+	double	dirx;
+	double	diry;
+	double	olddirx;
 }				t_data;
 
 // make_map.c
@@ -70,6 +72,7 @@ void	draw_character(t_data *game, int rgb);
 
 //player move
 void	move(t_data *game, int keycode);
+void	cast_rays(t_data *game);
 
 // check_map.c
 int		check_map(t_data *game);

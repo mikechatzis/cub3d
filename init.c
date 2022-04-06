@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/05 20:10:26 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/06 18:20:42 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,24 @@ void	direction_init(t_data *game)
 {
 	if (game->pdir == 'N')
 	{
-		game->dirX = 0;
-		game->dirY = -1;
+		game->dirx = 0;
+		game->diry = -1;
 	}
 	else if (game->pdir == 'E')
 	{
-		game->dirX = 1;
-		game->dirY = 0;
+		game->dirx = 1;
+		game->diry = 0;
 	}
 	else if (game->pdir == 'W')
 	{
-		game->dirX = -1;
-		game->dirY = 0;
+		game->dirx = -1;
+		game->diry = 0;
 	}
 	else
 	{
-		game->dirX = 0;
-		game->dirY = 1;
+		game->dirx = 0;
+		game->diry = 1;
 	}
-
 }
 
 void	initialize(t_data *game, char **argv)
