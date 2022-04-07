@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 21:15:10 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/07 19:07:01 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/07 19:59:48 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	find_player(t_data *game, int x, int y)
 	// draw_character(game, 155);
 }
 
-void	draw_3dmap(t_data *game, double startx, double starty)
+void	draw_3dmap(t_data *game, double startx, double starty) // We never use startx or starty
 {
 	int	lineheight;
 	int	linestart;
@@ -31,11 +31,11 @@ void	draw_3dmap(t_data *game, double startx, double starty)
 		lineheight = 450;
 	linestart = 225 - lineheight / 2;
 	mlx_clear_window(game->mlx, game->mlx_win);
-	while (++game->xstart % 10 && game->xstart < 450)
+	while (game->xstart++ % 10 && game->xstart < 450)
 	{
 		y = -1;
 		while (++y < lineheight)
-			mlx_pixel_put(game->mlx, game->mlx_win, game->xstart, y + linestart, create_trgb(0, 120, 0, 120));
+			mlx_pixel_put(game->mlx, game->mlx_win, startx + game->xstart, starty + y + linestart, create_trgb(0, 120, 0, 120));
 	}
 }
 
