@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/06 19:21:55 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/07 17:44:36 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-#include  <math.h>
+# include  <math.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <stdbool.h>
@@ -38,7 +38,6 @@ enum {
 
 typedef struct s_data
 {	
-	int		check;
 	void	*mlx;
 	void	*mlx_win;
 	int		lc;
