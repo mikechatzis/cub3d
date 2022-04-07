@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/07 13:45:26 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/07 18:54:12 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,21 @@ void	move5(t_data *game, double tempx, double tempy)
 		game->ppos_y = tempy;
 	}
 	// draw_character(game, 255);
+	game->xstart = -1;
 	cast_rays(game);
 }
 
 void	move4(t_data *game, double tempx, double tempy)
 {
-	game->ppos_x += game->diry * 15;
-	game->ppos_y -= game->dirx * 15;
+	game->ppos_x -= game->diry * 15;
+	game->ppos_y += game->dirx * 15;
 	if (wall_colision(game))
 	{
 		game->ppos_x = tempx;
 		game->ppos_y = tempy;
 	}
 	// draw_character(game, 255);
+	game->xstart = -1;
 	cast_rays(game);
 }
 
@@ -47,14 +49,15 @@ void	move3(t_data *game, int keycode)
 	tempy = game->ppos_y;
 	if (keycode == RIGHT)
 	{
-		game->ppos_x -= game->diry * 15;
-		game->ppos_y += game->dirx * 15;
+		game->ppos_x += game->diry * 15;
+		game->ppos_y -= game->dirx * 15;
 		if (wall_colision(game))
 		{
 			game->ppos_x = tempx;
 			game->ppos_y = tempy;
 		}
 		// draw_character(game, 255);
+		game->xstart = -1;
 		cast_rays(game);
 	}
 	if (keycode == LEFT)
@@ -66,22 +69,24 @@ static void	move2(t_data *game, int keycode)
 	if (keycode == STRAFE_L)
 	{
 		game->olddirx = game->dirx;
-		game->dirx = game->dirx * cos((float)-0.1)
-			- game->diry * sin((float)-0.1);
-		game->diry = game->olddirx * sin((float)-0.1)
-			+ game->diry * cos((float)-0.1);
+		game->dirx = game->dirx * cos((float)0.1)
+			- game->diry * sin((float)0.1);
+		game->diry = game->olddirx * sin((float)0.1)
+			+ game->diry * cos((float)0.1);
 		// draw_character(game, 255);
+		game->xstart = -1;
 		cast_rays(game);
 		game->check = 1;
 	}
 	if (keycode == STRAFE_R)
 	{
 		game->olddirx = game->dirx;
-		game->dirx = game->dirx * cos((float)0.1)
-			- game->diry * sin((float)0.1);
-		game->diry = game->olddirx * sin((float)0.1)
-			+ game->diry * cos((float)0.1);
+		game->dirx = game->dirx * cos((float)-0.1)
+			- game->diry * sin((float)-0.1);
+		game->diry = game->olddirx * sin((float)-0.1)
+			+ game->diry * cos((float)-0.1);
 		// draw_character(game, 255);
+		game->xstart = -1;
 		cast_rays(game);
 		game->check = 1;
 	}
@@ -105,6 +110,7 @@ void	move(t_data *game, int keycode)
 			game->ppos_y = tempy;
 		}
 		// draw_character(game, 255);
+		game->xstart = -1;
 		cast_rays(game);
 	}
 	else if (keycode == DOWN)

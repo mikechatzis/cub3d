@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/06 18:20:42 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/07 18:54:06 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	direction_init(t_data *game)
 
 void	initialize(t_data *game, char **argv)
 {
+	game->xstart = -1;
 	game->check = 0;
 	game->l_max_len = 0;
 	game->map_file = argv[1];

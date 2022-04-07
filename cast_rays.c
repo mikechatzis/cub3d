@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/07 13:38:56 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/07 18:33:26 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	cast_rays_left(t_data *game)
 	size_t	i;
 
 	i = -1;
-	while (++i < 120)
+	while (++i < 90)
 	{
 		cast_ray(game);
 		game->olddirx = game->dirx;
@@ -33,7 +33,7 @@ static void	cast_rays_right(t_data *game)
 	size_t	i;
 
 	i = -1;
-	while (++i < 120)
+	while (++i < 90)
 	{
 		game->olddirx = game->dirx;
 		game->dirx = game->dirx * cos((float)0.005)

@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 21:15:10 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/07 14:26:15 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/07 19:07:01 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,19 @@ void	draw_3dmap(t_data *game, double startx, double starty)
 {
 	int	lineheight;
 	int	linestart;
-	int	x;
+	static	int	x;
 	int	y;
 	
-	lineheight = 920 / (game->raylen + startx + starty) * 30;
-	if (lineheight > 920)
-		lineheight = 920;
-	linestart = 60 - lineheight / 2;
-	x = -1;
-	while (++x < 10)
+	lineheight = 450 * 60 / game->raylen;
+	if (lineheight > 450)
+		lineheight = 450;
+	linestart = 225 - lineheight / 2;
+	mlx_clear_window(game->mlx, game->mlx_win);
+	while (++game->xstart % 10 && game->xstart < 450)
 	{
 		y = -1;
 		while (++y < lineheight)
-			mlx_pixel_put(game->mlx, game->mlx_win, startx + linestart + x, starty + linestart + y + lineheight, create_trgb(0, 0, 255, 0));
+			mlx_pixel_put(game->mlx, game->mlx_win, game->xstart, y + linestart, create_trgb(0, 120, 0, 120));
 	}
 }
 

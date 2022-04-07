@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/07 13:39:26 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/07 18:19:26 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_data
 	double	diry;
 	double	olddirx;
 	size_t	raylen;
+	int		xstart;
 }				t_data;
 
 // init.c
