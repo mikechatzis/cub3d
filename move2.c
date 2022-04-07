@@ -6,51 +6,13 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/06 20:59:58 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/07 14:01:32 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	check(t_data *game, size_t i)
-{
-	if (game->pdir == 'S' || game->pdir == 'E')
-	{
-		game->x = abs((int)(game->ppos_x + game->dirx * i + 1) / 60);
-		game->y = abs((int)(game->ppos_y + game->diry * i + 1) / 60);
-	}
-	else if (game->pdir == 'N' || game->pdir == 'W')
-	{
-		game->x = abs((int)(game->ppos_x + game->dirx * i - 1) / 60);
-		game->y = abs((int)(game->ppos_y + game->diry * i - 1) / 60);
-	}
-}
-
-void	check2(t_data *game, size_t i)
-{
-	if (game->dirx < 0 && game->diry < 0)
-	{
-		game->x = abs((int)(game->ppos_x + game->dirx * i - 1) / 60);
-		game->y = abs((int)(game->ppos_y + game->diry * i - 1) / 60);
-	}
-	else if (game->dirx > 0 && game->diry < 0)
-	{
-		game->x = abs((int)(game->ppos_x + game->dirx * i + 1) / 60);
-		game->y = abs((int)(game->ppos_y + game->diry * i - 1) / 60);
-	}
-	else if (game->dirx > 0 && game->diry > 0)
-	{
-		game->x = abs((int)(game->ppos_x + game->dirx * i + 1) / 60);
-		game->y = abs((int)(game->ppos_y + game->diry * i + 1) / 60);
-	}
-	else
-	{
-		game->x = abs((int)(game->ppos_x + game->dirx * i - 1) / 60);
-		game->y = abs((int)(game->ppos_y + game->diry * i + 1) / 60);
-	}
-}
-
-void	face_direction(t_data *game)
+void	cast_ray(t_data *game)
 {
 	size_t	i;
 
@@ -61,9 +23,12 @@ void	face_direction(t_data *game)
 		game->y = abs((int)(game->ppos_y + game->diry * i) / 60);
 		if (game->map[game->y][game->x] == '1')
 			break ;
-		mlx_pixel_put(game->mlx, game->mlx_win, game->ppos_x + game->dirx * i,
-			game->ppos_y + game->diry * i, create_trgb(0, 0, 60, 0));
+		// mlx_pixel_put(game->mlx, game->mlx_win, game->ppos_x + game->dirx * i,
+		// 	game->ppos_y + game->diry * i, create_trgb(0, 0, 60, 0));
 	}
+	game->raylen = i;
+	draw_3dmap(game, 600 + game->dirx * i,
+		480 + game->diry * i);
 }
 
 bool	wall_colision_ray(t_data *game)
@@ -77,8 +42,8 @@ bool	wall_colision_ray(t_data *game)
 		game->y = abs((int)(game->ppos_y + game->diry * i) / 60);
 		if (game->map[game->y][game->x] == '1')
 			return (1);
-		mlx_pixel_put(game->mlx, game->mlx_win, game->ppos_x + game->dirx * i,
-			game->ppos_y + game->diry * i, create_trgb(0, 60, 0, 0));
+		// mlx_pixel_put(game->mlx, game->mlx_win, game->ppos_x + game->dirx * i,
+		// 	game->ppos_y + game->diry * i, create_trgb(0, 60, 0, 0));
 	}
 	return (0);
 }

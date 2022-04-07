@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/06 21:00:04 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/07 13:45:26 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	move5(t_data *game, double tempx, double tempy)
 		game->ppos_x = tempx;
 		game->ppos_y = tempy;
 	}
-	draw_character(game, 255);
+	// draw_character(game, 255);
 	cast_rays(game);
 }
 
@@ -34,7 +34,7 @@ void	move4(t_data *game, double tempx, double tempy)
 		game->ppos_x = tempx;
 		game->ppos_y = tempy;
 	}
-	draw_character(game, 255);
+	// draw_character(game, 255);
 	cast_rays(game);
 }
 
@@ -54,7 +54,7 @@ void	move3(t_data *game, int keycode)
 			game->ppos_x = tempx;
 			game->ppos_y = tempy;
 		}
-		draw_character(game, 255);
+		// draw_character(game, 255);
 		cast_rays(game);
 	}
 	if (keycode == LEFT)
@@ -70,7 +70,7 @@ static void	move2(t_data *game, int keycode)
 			- game->diry * sin((float)-0.1);
 		game->diry = game->olddirx * sin((float)-0.1)
 			+ game->diry * cos((float)-0.1);
-		draw_character(game, 255);
+		// draw_character(game, 255);
 		cast_rays(game);
 		game->check = 1;
 	}
@@ -81,7 +81,7 @@ static void	move2(t_data *game, int keycode)
 			- game->diry * sin((float)0.1);
 		game->diry = game->olddirx * sin((float)0.1)
 			+ game->diry * cos((float)0.1);
-		draw_character(game, 255);
+		// draw_character(game, 255);
 		cast_rays(game);
 		game->check = 1;
 	}
@@ -104,7 +104,7 @@ void	move(t_data *game, int keycode)
 			game->ppos_x = tempx;
 			game->ppos_y = tempy;
 		}
-		draw_character(game, 255);
+		// draw_character(game, 255);
 		cast_rays(game);
 	}
 	else if (keycode == DOWN)

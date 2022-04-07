@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/06 21:05:40 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/07 13:39:26 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_data
 	double	dirx;
 	double	diry;
 	double	olddirx;
+	size_t	raylen;
 }				t_data;
 
 // init.c
@@ -70,6 +71,10 @@ void	draw_wall(t_data *game, int x_start, int y_start, int rgb);
 int		create_trgb(int t, int r, int g, int b);
 void	draw_character(t_data *game, int rgb);
 
+// draw_map_3d.c
+void	init_map3d(t_data *game);
+void	draw_3dmap(t_data *game, double startx, double starty);
+
 // move.c
 void	move(t_data *game, int keycode);
 void	cast_rays(t_data *game);
@@ -77,7 +82,7 @@ bool	wall_colision_ray(t_data *game);
 bool	wall_colision(t_data *game);
 
 // move2.c
-void	face_direction(t_data *game);
+void	cast_ray(t_data *game);
 
 // check_map.c
 int		check_map(t_data *game);
