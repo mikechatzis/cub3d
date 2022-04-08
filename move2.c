@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/07 14:01:32 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:25:31 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ void	cast_ray(t_data *game)
 		// 	game->ppos_y + game->diry * i, create_trgb(0, 0, 60, 0));
 	}
 	game->raylen = i;
-	draw_3dmap(game, 600 + game->dirx * i,
-		480 + game->diry * i);
+	draw_3dmap(game);
 }
 
 bool	wall_colision_ray(t_data *game)

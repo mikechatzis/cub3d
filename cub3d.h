@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/07 18:19:26 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:25:53 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	draw_character(t_data *game, int rgb);
 
 // draw_map_3d.c
 void	init_map3d(t_data *game);
-void	draw_3dmap(t_data *game, double startx, double starty);
+void	draw_3dmap(t_data *game);
 
 // move.c
 void	move(t_data *game, int keycode);
