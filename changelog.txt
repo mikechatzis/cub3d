@@ -27,3 +27,21 @@ Properly cast a single ray from character that stops upon hitting a wall, in the
 400 = (x - ppos_x)^2 + (y - ppos_y)^2
 sin = x / 400 -> x = 400 * sin
 				 y = 400 * cos
+
+
+
+
+				 
+	size_t	i;
+
+	i = -1;
+	while (++i || 1)
+	{
+		game->x = abs((int)(game->ppos_x + game->dirx * i) / 60);
+		game->y = abs((int)(game->ppos_y + game->diry * i) / 60);
+		if (game->map[game->y][game->x] == '1')
+			break ;
+		// mlx_pixel_put(game->mlx, game->mlx_win, game->ppos_x + game->dirx * i,
+		// 	game->ppos_y + game->diry * i, create_trgb(0, 0, 60, 0));
+	}
+	game->raylen = i;

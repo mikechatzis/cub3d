@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/07 17:45:18 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/09 14:01:34 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,21 @@
 # define STRAFE_R 124
 # define PI 3.14159265359
 
+typedef struct s_ray
+{
+	int		mapx;
+	int		mapy;
+	short	stepx;
+	short	stepy;
+	bool	hit;
+	bool	side;
+	double	sidedistx;
+	double	sidedisty;
+	double	deltadistx;
+	double	deltadisty;
+	double	perpwalldist;
+}t_ray;
+
 typedef struct s_data
 {	
 	void	*mlx;
@@ -54,6 +69,7 @@ typedef struct s_data
 	double	diry;
 	double	olddirx;
 	size_t	raylen;
+	int		xstart;
 }				t_data;
 
 // init.c
@@ -72,7 +88,7 @@ void	draw_character(t_data *game, int rgb);
 
 // draw_map_3d.c
 void	init_map3d(t_data *game);
-void	draw_3dmap(t_data *game, double startx, double starty);
+void	draw_3dmap(t_data *game);
 
 // move.c
 void	move(t_data *game, int keycode);
