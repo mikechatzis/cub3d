@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   error3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:16:53 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/01 15:07:22 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:23:38 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*skip_space(char *s)
+static char	*skip_space(char *s)
 {
 	while (*s == ' ')
 		s++;
 	return (s);
 }
 
-bool	isnotnum(char *s)
+static bool	isnotnum(char *s)
 {
 	while (*s)
 	{
@@ -30,7 +30,7 @@ bool	isnotnum(char *s)
 	return (true);
 }
 
-bool	loop(t_data *game, char **clrs)
+static bool	loop(t_data *game, char **clrs)
 {
 	unsigned short	j;
 

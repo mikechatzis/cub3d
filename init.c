@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/06 18:20:42 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/07 17:46:50 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	direction_init(t_data *game)
 
 void	initialize(t_data *game, char **argv)
 {
-	game->check = 0;
 	game->l_max_len = 0;
 	game->map_file = argv[1];
 	game->textures = ft_calloc(4, sizeof(char *));

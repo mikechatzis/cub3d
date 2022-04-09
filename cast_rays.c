@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/06 19:21:42 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/07 13:38:56 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ static void	cast_rays_left(t_data *game)
 	size_t	i;
 
 	i = -1;
-	while (++i < 30)
+	while (++i < 120)
 	{
-		face_direction(game);
+		cast_ray(game);
 		game->olddirx = game->dirx;
-		game->dirx = game->dirx * cos((float)-0.02)
-			- game->diry * sin((float)-0.02);
-		game->diry = game->olddirx * sin((float)-0.02)
-			+ game->diry * cos((float)-0.02);
+		game->dirx = game->dirx * cos((float)-0.005)
+			- game->diry * sin((float)-0.005);
+		game->diry = game->olddirx * sin((float)-0.005)
+			+ game->diry * cos((float)-0.005);
 	}
 }
 
@@ -33,14 +33,14 @@ static void	cast_rays_right(t_data *game)
 	size_t	i;
 
 	i = -1;
-	while (++i < 30)
+	while (++i < 120)
 	{
 		game->olddirx = game->dirx;
-		game->dirx = game->dirx * cos((float)0.02)
-			- game->diry * sin((float)0.02);
-		game->diry = game->olddirx * sin((float)0.02)
-			+ game->diry * cos((float)0.02);
-		face_direction(game);
+		game->dirx = game->dirx * cos((float)0.005)
+			- game->diry * sin((float)0.005);
+		game->diry = game->olddirx * sin((float)0.005)
+			+ game->diry * cos((float)0.005);
+		cast_ray(game);
 	}
 }
 

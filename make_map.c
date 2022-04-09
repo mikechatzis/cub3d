@@ -6,13 +6,13 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:40:41 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/05 19:25:32 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/06 14:26:40 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"	
 
-void	get_to_map(int mfd)
+static void	get_to_map(int mfd)
 {
 	int		i;
 	char	*temp;
@@ -25,7 +25,7 @@ void	get_to_map(int mfd)
 	}
 }
 
-void	make_line(t_data *game, char *temp, int mfd, int i)
+static void	make_line(t_data *game, char *temp, int mfd, int i)
 {	
 	size_t	len;
 	int		j;
@@ -43,7 +43,7 @@ void	make_line(t_data *game, char *temp, int mfd, int i)
 	}
 }
 
-void	make_array(t_data *game)
+static void	make_array(t_data *game)
 {
 	int		i;
 	size_t	j;
@@ -68,7 +68,7 @@ void	make_array(t_data *game)
 	close(mfd);
 }
 
-int	line_val_check(t_data *game, char *line)
+static int	line_val_check(t_data *game, char *line)
 {
 	int	i;
 
