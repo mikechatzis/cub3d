@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_rays.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/08 18:27:24 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/09 15:57:27 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static bool	cast_rays_colision(t_data *game)
 	size_t	i;
 
 	i = -1;
-	while (++i < 144)
+	while (++i < 70)
 	{
 		if (wall_colision_ray(game))
 			return (1);

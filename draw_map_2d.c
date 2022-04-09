@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:16:53 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/07 13:44:39 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/09 13:38:34 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	draw_wall(t_data *game, int x_start, int y_start, int rgb)
 
 	x = -1;
 	y = -1;
-	while (++y < 60)
+	while (++y < 59)
 	{
-		while (++x < 60)
+		while (++x < 59)
 			mlx_pixel_put(game->mlx, game->mlx_win,
 				x_start + x, y_start + y, rgb);
 		x = 0;
@@ -52,7 +52,7 @@ static void	draw_map2(t_data *game, int x, int y)
 {
 	game->ppos_x = x;
 	game->ppos_y = y;
-	// draw_character(game, 155);
+	draw_character(game, 155);
 }
 
 void	draw_map(t_data *game)

@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/09 14:01:34 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/09 15:34:05 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	draw_character(t_data *game, int rgb);
 
 // draw_map_3d.c
 void	init_map3d(t_data *game);
-void	draw_3dmap(t_data *game);
+void	draw_3dmap(t_data *game, t_ray *ray);
 
 // move.c
 void	move(t_data *game, int keycode);
