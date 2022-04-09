@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/08 18:27:24 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/09 14:39:22 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	cast_rays_left(t_data *game)
 	size_t	i;
 
 	i = -1;
+	game->rayside = 0;
 	while (++i < 90)
 	{
 		cast_ray(game);
@@ -33,6 +34,7 @@ static void	cast_rays_right(t_data *game)
 	size_t	i;
 
 	i = -1;
+	game->rayside = 1;
 	while (++i < 90)
 	{
 		game->olddirx = game->dirx;
@@ -49,7 +51,7 @@ static bool	cast_rays_colision(t_data *game)
 	size_t	i;
 
 	i = -1;
-	while (++i < 144)
+	while (++i < 70)
 	{
 		if (wall_colision_ray(game))
 			return (1);

@@ -6,36 +6,41 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 21:15:10 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/08 18:28:35 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/09 14:42:26 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "cub3d.h"
 
 static void	find_player(t_data *game, int x, int y)
 {
 	game->ppos_x = x;
 	game->ppos_y = y;
-	// draw_character(game, 155);
 }
 
 void	draw_3dmap(t_data *game)
 {
 	int	lineheight;
 	int	linestart;
-	static	int	x;
 	int	y;
-	
-	lineheight = 450 * 60 / game->raylen;
-	if (lineheight > 450)
-		lineheight = 450;
-	linestart = 225 - lineheight / 2;
+
+	lineheight = 480 * 60 / game->raylen;
+	if (lineheight > 480)
+		lineheight = 480;
+	linestart = 240 - lineheight / 2;
 	mlx_clear_window(game->mlx, game->mlx_win);
-	while (game->xstart++ % 7 && game->xstart < 450)
+	while (++game->xstart % 2 && game->xstart < 840)
 	{
 		y = -1;
 		while (++y < lineheight)
-			mlx_pixel_put(game->mlx, game->mlx_win, game->xstart, y + linestart, create_trgb(0, 120, 0, 120));
+		{
+			if (game->rayside == 1)
+				mlx_pixel_put(game->mlx, game->mlx_win, game->xstart,
+					y + linestart, create_trgb(0, 120, 0, 120));
+			else
+				mlx_pixel_put(game->mlx, game->mlx_win, -game->xstart + 1140,
+					y + linestart, create_trgb(0, 120, 0, 120));
+		}
 	}
 }
 
