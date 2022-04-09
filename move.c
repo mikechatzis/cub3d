@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/09 15:13:23 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/09 19:14:00 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	move5(t_data *game, double tempx, double tempy)
 	}
 	draw_character(game, 255);
 	game->xstart = 480;
-	cast_rays(game);
+	cast_ray(game, 0);
 }
 
 void	move4(t_data *game, double tempx, double tempy)
@@ -37,7 +37,7 @@ void	move4(t_data *game, double tempx, double tempy)
 	}
 	draw_character(game, 255);
 	game->xstart = 480;
-	cast_rays(game);
+	cast_ray(game, 0);
 }
 
 void	move3(t_data *game, int keycode)
@@ -58,7 +58,7 @@ void	move3(t_data *game, int keycode)
 		}
 		draw_character(game, 255);
 		game->xstart = 480;
-		cast_rays(game);
+		cast_ray(game, 0);
 	}
 	if (keycode == LEFT)
 		move4(game, tempx, tempy);
@@ -75,7 +75,7 @@ static void	move2(t_data *game, int keycode)
 			+ game->diry * cos((float)-0.1);
 		draw_character(game, 255);
 		game->xstart = 480;
-		cast_rays(game);
+		cast_ray(game, 0);
 	}
 	if (keycode == STRAFE_R)
 	{
@@ -86,7 +86,7 @@ static void	move2(t_data *game, int keycode)
 			+ game->diry * cos((float)0.1);
 		draw_character(game, 255);
 		game->xstart = 480;
-		cast_rays(game);
+		cast_ray(game, 0);
 	}
 	move3(game, keycode);
 }
@@ -109,7 +109,7 @@ void	move(t_data *game, int keycode)
 		}
 		draw_character(game, 255);
 		game->xstart = 480;
-		cast_rays(game);
+		cast_ray(game, 0);
 	}
 	else if (keycode == DOWN)
 		move5(game, tempx, tempy);

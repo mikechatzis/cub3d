@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/09 16:08:12 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/09 19:23:23 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ static void	raystructinit(t_ray *ray, t_data *game)
 	ray->mapx = game->ppos_x / 60;
 	ray->mapy = game->ppos_y / 60;
 	ray->deltadistx = fabs(1 / game->dirx);
-	// if (!game->dirx)
-	// 	ray->deltadistx = 1e30;
+	if (!game->dirx)
+		ray->deltadistx = INFINITY;
 	ray->deltadisty = fabs(1 / game->diry);
-	// if (!game->diry)
-	// 	ray->deltadisty = 1e30;
+	if (!game->diry)
+		ray->deltadisty = INFINITY;
 	ray->hit = 0;
 }
 
@@ -30,26 +30,27 @@ static void	rayvarsinit(t_ray *ray, t_data *game)
 	if (game->dirx < 0)
 	{
 		ray->stepx = -1;
-		ray->sidedistx = (game->ppos_x - ray->mapx) * ray->deltadistx;
+		ray->sidedistx = (double)(game->ppos_x - ray->mapx) * ray->deltadistx;
 	}
 	else
 	{
 		ray->stepx = 1;
-		ray->sidedistx = (ray->mapy + 1 - game->ppos_x) * ray->deltadistx;
+		ray->sidedistx = (double)(ray->mapx + 60 - game->ppos_x) * ray->deltadistx;
 	}
 	if (game->diry < 0)
 	{
 		ray->stepy = -1;
-		ray->sidedisty = (game->ppos_y - ray->mapy) * ray->deltadisty;
+		ray->sidedisty = (double)(game->ppos_y - ray->mapy) * ray->deltadisty;
 	}
 	else
 	{
 		ray->stepy = 1;
-		ray->sidedisty = (ray->mapy + 1 - game->ppos_y) * ray->deltadisty;
+		ray->sidedisty = (double)(ray->mapy + 60 - game->ppos_y) * ray->deltadisty;
 	}
+	printf("%lf    %lf  \n", ray->sidedistx, ray->sidedisty);
 }
 
-void	cast_ray(t_data *game)
+void	cast_ray(t_data *game, size_t i)
 {
 	t_ray	ray;
 
@@ -71,22 +72,18 @@ void	cast_ray(t_data *game)
 		}
 		if (game->map[ray.mapy][ray.mapx] == '1')
 		{
-			printf("test\n");
-				ray.hit = 1;
+			printf("hit\n");
+			ray.hit = 1;
 		}
+		mlx_pixel_put(game->mlx, game->mlx_win, ray.mapx * 60, ray.mapy * 60, create_trgb(0, 0, 255, 0));
 	}
 	if (!ray.side)
-		game->raylen = fabs(ray.sidedistx - ray.deltadistx) + 60;
+		game->raylen = (int)fabs((ray.sidedistx - ray.deltadistx)
+				/ cos(0.005 * (i + 1)));
 	else
-		game->raylen = fabs(ray.sidedisty - ray.deltadisty) - 60;
-	if (game->raylen < 0)
-		game->raylen *= -1;
+		game->raylen = (int)fabs((ray.sidedisty - ray.deltadisty)
+				/ cos(0.005 * (i + 1)));
 	printf("%ld\n", game->raylen);
-	for (size_t i = 0; i < game->raylen ; i++)
-	{
-		mlx_pixel_put(game->mlx, game->mlx_win, game->ppos_x + game->dirx * i, game->ppos_y + game->diry * i, create_trgb(0, 0, 255, 0));
-	}
-	
 	// draw_3dmap(game, &ray);
 }
 
