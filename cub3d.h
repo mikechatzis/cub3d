@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/11 02:12:12 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/11 14:15:33 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define STRAFE_L 123
 # define STRAFE_R 124
 # define MOVESPEED 0.15
-# define ROTSPEED 0.005
+# define ROTSPEED 0.1
 # define PI 3.14159265359
 
 typedef struct s_ray

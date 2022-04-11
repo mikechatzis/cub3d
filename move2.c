@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/11 03:22:17 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/11 14:20:01 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 static void	raystructinit(t_ray *ray, t_data *game, int i)
 {
 	ray->camerax = 2 * i / (double)(480) - 1;
-	if (!game->diry)
-	{
-		ray->raydirx = game->dirx + game->planex * ray->camerax;
-		ray->raydiry = game->diry + game->planey * ray->camerax;
-	}
-	else
-	{
-		ray->raydirx = game->dirx + game->planey * ray->camerax;
-		ray->raydiry = game->diry + game->planex * ray->camerax;
-	}
+	// if (!game->diry)
+	// {
+	ray->raydirx = game->dirx + game->planex * ray->camerax;
+	ray->raydiry = game->diry + game->planey * ray->camerax;
+	// }
+	// else
+	// {
+	// 	ray->raydirx = game->dirx + game->planex * ray->camerax;
+	// 	ray->raydiry = game->diry + game->planey * ray->camerax;
+	// }
 	ray->mapx = (int)game->ppos_x;
 	ray->mapy = (int)game->ppos_y;
 	if (!ray->raydirx)

@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/11 00:53:51 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/11 14:16:51 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,16 @@ void	direction_init(t_data *game)
 		game->dirx = 0;
 		game->diry = 1;
 	}
-	game->planex = 0;
-	game->planey = 0.66;
+	if (!game->diry)
+	{
+		game->planex = 0;
+		game->planey = 0.66;
+	}
+	else
+	{
+		game->planex = 0.66;
+		game->planey = 0;
+	}
 }
 
 void	initialize(t_data *game, char **argv)
