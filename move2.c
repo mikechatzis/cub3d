@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/11 02:37:02 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/11 03:22:17 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,23 @@
 static void	raystructinit(t_ray *ray, t_data *game, int i)
 {
 	ray->camerax = 2 * i / (double)(480) - 1;
-	ray->raydirx = game->dirx + game->planex * ray->camerax;
-	ray->raydiry = game->diry + game->planey * ray->camerax;
+	if (!game->diry)
+	{
+		ray->raydirx = game->dirx + game->planex * ray->camerax;
+		ray->raydiry = game->diry + game->planey * ray->camerax;
+	}
+	else
+	{
+		ray->raydirx = game->dirx + game->planey * ray->camerax;
+		ray->raydiry = game->diry + game->planex * ray->camerax;
+	}
 	ray->mapx = (int)game->ppos_x;
 	ray->mapy = (int)game->ppos_y;
-	if (!game->dirx)
+	if (!ray->raydirx)
 		ray->deltadistx = INFINITY;
 	else
 		ray->deltadistx = fabs(1 / ray->raydirx);
-	if (!game->diry)
+	if (!ray->raydiry)
 		ray->deltadisty = INFINITY;
 	else
 		ray->deltadisty = fabs(1 / ray->raydiry);
@@ -32,7 +40,7 @@ static void	raystructinit(t_ray *ray, t_data *game, int i)
 
 static void	rayvarsinit(t_ray *ray, t_data *game)
 {
-	if (game->dirx < 0)
+	if (ray->raydirx < 0)
 	{
 		ray->stepx = -1;
 		ray->sidedistx = (game->ppos_x - ray->mapx) * ray->deltadistx;
@@ -42,7 +50,7 @@ static void	rayvarsinit(t_ray *ray, t_data *game)
 		ray->stepx = 1;
 		ray->sidedistx = (ray->mapx + 1.0 - game->ppos_x) * ray->deltadistx;
 	}
-	if (game->diry < 0)
+	if (ray->raydiry < 0)
 	{
 		ray->stepy = -1;
 		ray->sidedisty = (game->ppos_y - ray->mapy) * ray->deltadisty;
