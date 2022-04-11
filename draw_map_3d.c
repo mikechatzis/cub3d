@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 21:15:10 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/11 02:23:41 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/11 17:50:28 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@ void	draw_3dmap(t_data *game, t_ray *ray, int x)
 	int	lineheight;
 	int	linestart;
 	int	lineend;
+	int	rand;
 	int	y;
 
 	lineheight = 480 / ray->perpwalldist;
 	linestart = 240 - lineheight / 2;
 	if (lineheight > 480)
 		lineheight = 480;
-	// lineend = lineheight / 2 + 480 / 2;
-	// if (lineend >= 480)
-	// 	lineend = 480 - 1; 
 	y = -1;
+	rand = -1;
+	// while (++rand < 8)
 	while (++y < lineheight)
-		mlx_pixel_put(game->mlx, game->mlx_win, x, y + linestart, create_trgb(0, 0, 255, 0));
+		mlx_pixel_put(game->mlx, game->mlx_win, (x * 8), y + linestart, create_trgb(0, 0, 255, 0));
 }
 
 void	init_map3d(t_data *game)

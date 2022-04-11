@@ -6,91 +6,52 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/11 02:57:32 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/11 18:02:18 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	cast_rays_left(t_data *game)
+bool	wall_colision_UP(t_data *game)
 {
-	size_t	i;
-
-	i = -1;
-	while (++i < 90)
+	printf("%d   %d\n", (int)(game->ppos_y * MOVESPEED * 6), (int)(game->ppos_x * MOVESPEED * 6));
+	if (game->map[(int)(game->ppos_y * MOVESPEED * 6)][(int)(game->ppos_x * MOVESPEED * 6)] == '1')
 	{
-		cast_ray(game, i);
-		game->olddirx = game->dirx;
-		game->dirx = game->dirx * cos((float)-0.005)
-			- game->diry * sin((float)-0.005);
-		game->diry = game->olddirx * sin((float)-0.005)
-			+ game->diry * cos((float)-0.005);
-	}
-}
-
-static void	cast_rays_right(t_data *game)
-{
-	size_t	i;
-
-	i = -1;
-	while (++i < 90)
-	{
-		game->olddirx = game->dirx;
-		game->dirx = game->dirx * cos((float)0.005)
-			- game->diry * sin((float)0.005);
-		game->diry = game->olddirx * sin((float)0.005)
-			+ game->diry * cos((float)0.005);
-		cast_ray(game, i);
-	}
-}
-
-static bool	cast_rays_colision(t_data *game)
-{
-	size_t	i;
-
-	i = -1;
-	while (++i < 70)
-	{
-		if (wall_colision_ray(game))
-			return (1);
-		game->olddirx = game->dirx;
-		game->dirx = game->dirx * cos((float)-0.05)
-			- game->diry * sin((float)-0.05);
-		game->diry = game->olddirx * sin((float)-0.05)
-			+ game->diry * cos((float)-0.05);
+		printf("test\n");
+		return (1);	
 	}
 	return (0);
 }
 
-void	cast_rays(t_data *game)
+bool	wall_colision_DOWN(t_data *game)
 {
-	double	cur_dirx;
-	double	cur_diry;
-
-	cur_dirx = game->dirx;
-	cur_diry = game->diry;
-	// cast_rays_left(game);
-	game->dirx = cur_dirx;
-	game->diry = cur_diry;
-	// cast_rays_right(game);
-	game->dirx = cur_dirx;
-	game->diry = cur_diry;
-}
-
-bool	wall_colision(t_data *game)
-{
-	double	cur_dirx;
-	double	cur_diry;
-
-	cur_dirx = game->dirx;
-	cur_diry = game->diry;
-	if (cast_rays_colision(game))
+	printf("%d   %d\n", (int)(game->ppos_y * MOVESPEED * 6), (int)(game->ppos_x * MOVESPEED * 6));
+	if (game->map[(int)(game->ppos_y * MOVESPEED * 6)][(int)(game->ppos_x * MOVESPEED * 6)] == '1')
 	{
-		game->dirx = cur_dirx;
-		game->diry = cur_diry;
+		printf("test\n");
 		return (1);
 	}
-	game->dirx = cur_dirx;
-	game->diry = cur_diry;
+	return (0);
+}
+
+bool	wall_colision_LEFT(t_data *game)
+{
+	printf("%d   %d\n", (int)(game->ppos_y * MOVESPEED * 6), (int)(game->ppos_x * MOVESPEED * 6));
+	if (game->map[(int)(game->ppos_y * MOVESPEED * 6)][(int)(game->ppos_x * MOVESPEED * 6)] == '1')
+	{
+		printf("test\n");
+		return (1);	
+	}
+	return (0);
+}
+
+bool	wall_colision_RIGHT(t_data *game)
+{
+	printf("%d   %d\n", (int)(game->ppos_y * MOVESPEED * 6), (int)(game->ppos_x * MOVESPEED * 6));
+	if (game->map[(int)(game->ppos_y * MOVESPEED * 6)][(int)(game->ppos_x * MOVESPEED * 6)] == '1')
+	{
+		printf("test\n");
+		return (1);	
+	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/11 14:20:01 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/11 17:49:56 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,9 @@
 
 static void	raystructinit(t_ray *ray, t_data *game, int i)
 {
-	ray->camerax = 2 * i / (double)(480) - 1;
-	// if (!game->diry)
-	// {
+	ray->camerax = 2 * i / (double)(60) - 1;
 	ray->raydirx = game->dirx + game->planex * ray->camerax;
 	ray->raydiry = game->diry + game->planey * ray->camerax;
-	// }
-	// else
-	// {
-	// 	ray->raydirx = game->dirx + game->planex * ray->camerax;
-	// 	ray->raydiry = game->diry + game->planey * ray->camerax;
-	// }
 	ray->mapx = (int)game->ppos_x;
 	ray->mapy = (int)game->ppos_y;
 	if (!ray->raydirx)
@@ -69,7 +61,7 @@ void	cast_rays2(t_data *game)
 
 	mlx_clear_window(game->mlx, game->mlx_win);
 	i = -1;
-	while (++i < 480)
+	while (++i < 60)
 	{
 		raystructinit(&ray, game, i);
 		rayvarsinit(&ray, game);
@@ -91,26 +83,15 @@ void	cast_rays2(t_data *game)
 				ray.hit = 1;
 		}
 		if (!ray.side)
+		{
 			ray.perpwalldist = (ray.sidedistx - ray.deltadistx);
+			draw_3dmap(game, &ray, (int)(i + game->ppos_y + ray.perpwalldist * ray.raydirx));
+		}
 		else
+		{
 			ray.perpwalldist = (ray.sidedisty - ray.deltadisty);
-		draw_3dmap(game, &ray, i);
+			draw_3dmap(game, &ray, (int)(i + game->ppos_x + ray.perpwalldist * ray.raydirx));
+		}
 	}
 }
 
-bool	wall_colision_ray(t_data *game)
-{
-	size_t	i;
-
-	i = -1;
-	while (++i < 10)
-	{
-		game->x = abs((int)(game->ppos_x + game->dirx * i) / 60);
-		game->y = abs((int)(game->ppos_y + game->diry * i) / 60);
-		if (game->map[game->y][game->x] == '1')
-			return (1);
-		// mlx_pixel_put(game->mlx, game->mlx_win, game->ppos_x + game->dirx * i,
-		// 	game->ppos_y + game->diry * i, create_trgb(0, 60, 0, 0));
-	}
-	return (0);
-}
