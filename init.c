@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/11 14:16:51 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/11 23:49:21 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,38 +22,42 @@ size_t	len_no_n(char *s)
 	return (len);
 }
 
+static void	direction_init2(t_data *game)
+{
+	if (game->pdir == 'W')
+	{
+		game->dirx = -1;
+		game->diry = 0;
+		game->planex = 0;
+		game->planey = -0.66;
+	}
+	else
+	{
+		game->dirx = 0;
+		game->diry = 1;
+		game->planex = -0.66;
+		game->planey = 0;
+	}
+}
+
 void	direction_init(t_data *game)
 {
 	if (game->pdir == 'N')
 	{
 		game->dirx = 0;
 		game->diry = -1;
+		game->planex = 0.66;
+		game->planey = 0;
 	}
 	else if (game->pdir == 'E')
 	{
 		game->dirx = 1;
 		game->diry = 0;
-	}
-	else if (game->pdir == 'W')
-	{
-		game->dirx = -1;
-		game->diry = 0;
-	}
-	else
-	{
-		game->dirx = 0;
-		game->diry = 1;
-	}
-	if (!game->diry)
-	{
 		game->planex = 0;
 		game->planey = 0.66;
 	}
 	else
-	{
-		game->planex = 0.66;
-		game->planey = 0;
-	}
+		direction_init2(game);
 }
 
 void	initialize(t_data *game, char **argv)

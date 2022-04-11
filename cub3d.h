@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/11 17:29:34 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/12 00:00:28 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 # define STRAFE_R 124
 # define MOVESPEED 0.15
 # define ROTSPEED 0.1
+# define SCREEN_W 480
+# define SCREEN_H 480
 # define PI 3.14159265359
 
 typedef struct s_ray
@@ -102,10 +104,10 @@ void	draw_3dmap(t_data *game, t_ray *ray, int x);
 void	move(t_data *game, int keycode);
 void	cast_rays(t_data *game);
 bool	wall_colision_ray(t_data *game);
-bool	wall_colision_UP(t_data *game);
-bool	wall_colision_DOWN(t_data *game);
-bool	wall_colision_LEFT(t_data *game);
-bool	wall_colision_RIGHT(t_data *game);
+bool	wall_colision_up(t_data *game);
+bool	wall_colision_down(t_data *game);
+bool	wall_colision_left(t_data *game);
+bool	wall_colision_right(t_data *game);
 
 // move2.c
 void	cast_ray(t_data *game, size_t i);

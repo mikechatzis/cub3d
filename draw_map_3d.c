@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 21:15:10 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/11 17:50:28 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/12 00:07:18 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	find_player(t_data *game, int x, int y)
 {
-	game->ppos_x = x;
-	game->ppos_y = y;
+	game->ppos_x = x + 0.5;
+	game->ppos_y = y + 0.5;
 }
 
 void	draw_3dmap(t_data *game, t_ray *ray, int x)
@@ -23,18 +23,19 @@ void	draw_3dmap(t_data *game, t_ray *ray, int x)
 	int	lineheight;
 	int	linestart;
 	int	lineend;
-	int	rand;
 	int	y;
 
-	lineheight = 480 / ray->perpwalldist;
-	linestart = 240 - lineheight / 2;
-	if (lineheight > 480)
-		lineheight = 480;
+	lineheight = SCREEN_H / ray->perpwalldist;
+	linestart = -lineheight / 2 + SCREEN_H / 2;
+	if (linestart < 0)
+		linestart = 0;
+	if (lineheight > SCREEN_H)
+		lineheight = SCREEN_H;
 	y = -1;
-	rand = -1;
-	// while (++rand < 8)
+	// x * 8 in mlx_pixel_put FOR FASTER RAYCAST
 	while (++y < lineheight)
-		mlx_pixel_put(game->mlx, game->mlx_win, (x * 8), y + linestart, create_trgb(0, 0, 255, 0));
+		mlx_pixel_put(game->mlx, game->mlx_win, x,
+			y + linestart, create_trgb(0, 0, 255, 0));
 }
 
 void	init_map3d(t_data *game)
