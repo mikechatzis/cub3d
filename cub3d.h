@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/09 14:14:15 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/11 02:12:12 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,30 @@
 # define ESC 53
 # define STRAFE_L 123
 # define STRAFE_R 124
+# define MOVESPEED 0.15
+# define ROTSPEED 0.005
 # define PI 3.14159265359
+
+typedef struct s_ray
+{
+	int		mapx;
+	int		mapy;
+	int		stepx;
+	int		stepy;
+	bool	hit;
+	int		side;
+	double	sidedistx;
+	double	sidedisty;
+	double	deltadistx;
+	double	deltadisty;
+	double	perpwalldist;
+	double	camerax;
+	double	raydirx;
+	double	raydiry;
+}t_ray;
 
 typedef struct s_data
 {	
-	int		check;
 	void	*mlx;
 	void	*mlx_win;
 	int		lc;
@@ -43,9 +62,9 @@ typedef struct s_data
 	char	**map;
 	int		*fc[6];
 	char	*map_file;
-	int		ppos_x;
-	int		ppos_y;
-	double	angle;
+	double	ppos_x;
+	double	ppos_y;
+	// double	angle;
 	char	pdir;
 	char	**textures;
 	int		colors[6];
@@ -54,10 +73,13 @@ typedef struct s_data
 	double	dirx;
 	double	diry;
 	double	olddirx;
-	size_t	raylen;
 	int		xstart;
-	int		rayside;
+	double	planex;
+	double	planey;
+	double	oldplanex;
 }				t_data;
+
+void	cast_rays2(t_data *game);
 
 // init.c
 size_t	len_no_n(char *s);
@@ -75,7 +97,7 @@ void	draw_character(t_data *game, int rgb);
 
 // draw_map_3d.c
 void	init_map3d(t_data *game);
-void	draw_3dmap(t_data *game);
+void	draw_3dmap(t_data *game, t_ray *ray, int x);
 
 // move.c
 void	move(t_data *game, int keycode);
@@ -84,7 +106,7 @@ bool	wall_colision_ray(t_data *game);
 bool	wall_colision(t_data *game);
 
 // move2.c
-void	cast_ray(t_data *game);
+void	cast_ray(t_data *game, size_t i);
 
 // check_map.c
 int		check_map(t_data *game);

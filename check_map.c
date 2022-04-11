@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 18:04:24 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/06 14:22:19 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/11 01:17:04 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,6 @@ int	check_map(t_data *game)
 			return (0);
 		i++;
 	}
-	game->map[game->ppos_y][game->ppos_x] = game->pdir;
+	game->map[(int)game->ppos_y][(int)game->ppos_x] = game->pdir;
 	return (1);
 }

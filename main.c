@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/09 14:37:54 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/11 02:35:50 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ int	main(int argc, char **argv)
 	direction_init(&game);
 	game.mlx = mlx_init();
 	game.mlx_win = mlx_new_window
-		(game.mlx, 840, 480, "cub3d");
+		(game.mlx, 480, 480, "cub3d");
 	init_map3d(&game);
-	draw_map(&game);
-	cast_rays(&game);
-	wall_colision(&game);
-	mlx_hook(game.mlx_win, 2, 1L << 1, key_hook, &game);
+	// draw_map(&game);
+	cast_rays2(&game);
+	// wall_colision(&game);
+	mlx_hook(game.mlx_win, 2, 0, key_hook, &game);
 	mlx_hook(game.mlx_win, 17, 0, finish_game, &game);
 	mlx_loop(game.mlx);
 }
