@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 21:15:10 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/12 11:36:32 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/12 11:39:21 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	draw_3dmap(t_data *game, t_ray *ray, int x)
 	y = -1;
 	// x * 8 in mlx_pixel_put FOR FASTER RAYCAST
 	while (++y < lineheight)
-		mlx_pixel_put(game->mlx, game->mlx_win, x * 4,
+		mlx_pixel_put(game->mlx, game->mlx_win, x,
 			y + linestart, create_trgb(0, 0, 255, 0));
 }
 
