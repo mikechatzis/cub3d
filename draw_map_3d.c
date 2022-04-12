@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 21:15:10 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/12 18:53:17 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/12 20:35:44 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,23 @@ void	draw_3dmap(t_data *game, t_ray *ray, int x)
 		linestart = 0;
 	if (lineheight > SCREEN_H)
 		lineheight = SCREEN_H;
-	y =  -1;
+	y = -1;
 	// x * 8 in mlx_pixel_put FOR FASTER RAYCAST
 	while (++y <= linestart)
-		mlx_pixel_put(game->mlx, game->mlx_win, x * 8 - 4,
+		my_mlx_pixel_put(game, x,
 			y, create_trgb(0, game->colors[3],
 				game->colors[4], game->colors[5]));
 	y = -1;
 	while (++y < lineheight)
-		mlx_pixel_put(game->mlx, game->mlx_win, x * 8,
+		my_mlx_pixel_put(game, x,
 			y + linestart, create_trgb(0, 0, 0, 0));
-	y = lineheight - 1;
-	while (++y <= SCREEN_H)
-		mlx_pixel_put(game->mlx, game->mlx_win, x * 8 + 4,
+	y -= 1;
+	while (++y < SCREEN_H - linestart)
+		my_mlx_pixel_put(game, x,
 			y + linestart, create_trgb(0, game->colors[0],
 				game->colors[1], game->colors[2]));
+	mlx_put_image_to_window(game->mlx_win,
+		game->mlx_win, game->frame->img, 0, 0);
 }
 
 void	init_map3d(t_data *game)

@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:16:53 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/03/27 16:15:41 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/12 19:22:01 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,7 @@ void	free_map(t_data *game)
 	while (++i < game->lc)
 		free(game->map[i]);
 	free(game->map);
+	mlx_destroy_window(game->mlx, game->mlx_win);
+	mlx_destroy_image(game->mlx, game->frame->img);
+	free(game->frame);
 }

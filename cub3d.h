@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/12 18:07:07 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/12 20:32:32 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,18 @@
 # define STRAFE_L 123
 # define STRAFE_R 124
 # define MOVESPEED 0.15
-# define ROTSPEED 0.1
-# define SCREEN_W 480
+# define ROTSPEED 0.3
+# define SCREEN_W 640
 # define SCREEN_H 480
-# define PI 3.14159265359
+
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}t_img;
 
 typedef struct s_ray
 {
@@ -58,6 +66,7 @@ typedef struct s_data
 {	
 	void	*mlx;
 	void	*mlx_win;
+	t_img	*frame;
 	int		lc;
 	size_t	l_max_len;
 	int		player;
@@ -74,7 +83,6 @@ typedef struct s_data
 	double	dirx;
 	double	diry;
 	double	olddirx;
-	int		xstart;
 	double	planex;
 	double	planey;
 	double	oldplanex;
@@ -84,8 +92,12 @@ void	cast_rays2(t_data *game);
 
 // init.c
 size_t	len_no_n(char *s);
+void	my_mlx_pixel_put(t_data *game, int x, int y, int color);
 void	initialize(t_data *game, char **argv);
 void	direction_init(t_data *game);
+
+//img_init
+void	img_init(t_data *game);
 
 // make_map.c
 int		assign_map(t_data *game, int mfd);
