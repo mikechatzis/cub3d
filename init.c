@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/09 18:03:07 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/12 18:07:33 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,28 +22,42 @@ size_t	len_no_n(char *s)
 	return (len);
 }
 
+static void	direction_init2(t_data *game)
+{
+	if (game->pdir == 'W')
+	{
+		game->dirx = -1;
+		game->diry = 0;
+		game->planex = 0;
+		game->planey = -0.66;
+	}
+	else
+	{
+		game->dirx = 0;
+		game->diry = 1;
+		game->planex = -0.66;
+		game->planey = 0;
+	}
+}
+
 void	direction_init(t_data *game)
 {
 	if (game->pdir == 'N')
 	{
 		game->dirx = 0;
 		game->diry = -1;
+		game->planex = 0.66;
+		game->planey = 0;
 	}
 	else if (game->pdir == 'E')
 	{
 		game->dirx = 1;
 		game->diry = 0;
-	}
-	else if (game->pdir == 'W')
-	{
-		game->dirx = -1;
-		game->diry = 0;
+		game->planex = 0;
+		game->planey = 0.66;
 	}
 	else
-	{
-		game->dirx = 0;
-		game->diry = 1;
-	}
+		direction_init2(game);
 }
 
 void	initialize(t_data *game, char **argv)

@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/09 19:14:00 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/12 18:07:24 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,32 @@
 
 void	move5(t_data *game, double tempx, double tempy)
 {
-	game->ppos_y -= game->diry * 15;
-	game->ppos_x -= game->dirx * 15;
-	if (wall_colision(game))
+	if (wall_colision_down(game))
 	{
 		game->ppos_x = tempx;
 		game->ppos_y = tempy;
 	}
-	draw_character(game, 255);
-	game->xstart = 480;
-	cast_ray(game, 0);
+	else
+	{
+		game->ppos_x -= game->dirx * MOVESPEED;
+		game->ppos_y -= game->diry * MOVESPEED;
+		cast_rays2(game);
+	}
 }
 
 void	move4(t_data *game, double tempx, double tempy)
 {
-	game->ppos_x += game->diry * 15;
-	game->ppos_y -= game->dirx * 15;
-	if (wall_colision(game))
+	if (wall_colision_left(game))
 	{
 		game->ppos_x = tempx;
 		game->ppos_y = tempy;
 	}
-	draw_character(game, 255);
-	game->xstart = 480;
-	cast_ray(game, 0);
+	else
+	{
+		game->ppos_x -= game->planex * MOVESPEED;
+		game->ppos_y -= game->planey * MOVESPEED;
+		cast_rays2(game);
+	}
 }
 
 void	move3(t_data *game, int keycode)
@@ -49,16 +51,17 @@ void	move3(t_data *game, int keycode)
 	tempy = game->ppos_y;
 	if (keycode == RIGHT)
 	{
-		game->ppos_x -= game->diry * 15;
-		game->ppos_y += game->dirx * 15;
-		if (wall_colision(game))
+		if (wall_colision_right(game))
 		{
 			game->ppos_x = tempx;
 			game->ppos_y = tempy;
 		}
-		draw_character(game, 255);
-		game->xstart = 480;
-		cast_ray(game, 0);
+		else
+		{
+			game->ppos_x += game->planex * MOVESPEED;
+			game->ppos_y += game->planey * MOVESPEED;
+			cast_rays2(game);
+		}
 	}
 	if (keycode == LEFT)
 		move4(game, tempx, tempy);
@@ -66,27 +69,33 @@ void	move3(t_data *game, int keycode)
 
 static void	move2(t_data *game, int keycode)
 {
-	if (keycode == STRAFE_L)
-	{
-		game->olddirx = game->dirx;
-		game->dirx = game->dirx * cos((float)-0.1)
-			- game->diry * sin((float)-0.1);
-		game->diry = game->olddirx * sin((float)-0.1)
-			+ game->diry * cos((float)-0.1);
-		draw_character(game, 255);
-		game->xstart = 480;
-		cast_ray(game, 0);
-	}
 	if (keycode == STRAFE_R)
 	{
 		game->olddirx = game->dirx;
-		game->dirx = game->dirx * cos((float)0.1)
-			- game->diry * sin((float)0.1);
-		game->diry = game->olddirx * sin((float)0.1)
-			+ game->diry * cos((float)0.1);
-		draw_character(game, 255);
-		game->xstart = 480;
-		cast_ray(game, 0);
+		game->dirx = game->dirx * cos(ROTSPEED)
+			- game->diry * sin(ROTSPEED);
+		game->diry = game->olddirx * sin(ROTSPEED)
+			+ game->diry * cos(ROTSPEED);
+		game->oldplanex = game->planex;
+		game->planex = game->planex * cos(ROTSPEED)
+			- game->planey * sin(ROTSPEED);
+		game->planey = game->oldplanex * sin(ROTSPEED)
+			+ game->planey * cos(ROTSPEED);
+		cast_rays2(game);
+	}
+	if (keycode == STRAFE_L)
+	{
+		game->olddirx = game->dirx;
+		game->dirx = game->dirx * cos(-ROTSPEED)
+			- game->diry * sin(-ROTSPEED);
+		game->diry = game->olddirx * sin(-ROTSPEED)
+			+ game->diry * cos(-ROTSPEED);
+		game->oldplanex = game->planex;
+		game->planex = game->planex * cos(-ROTSPEED)
+			- game->planey * sin(-ROTSPEED);
+		game->planey = game->oldplanex * sin(-ROTSPEED)
+			+ game->planey * cos(-ROTSPEED);
+		cast_rays2(game);
 	}
 	move3(game, keycode);
 }
@@ -100,16 +109,17 @@ void	move(t_data *game, int keycode)
 	tempy = game->ppos_y;
 	if (keycode == UP)
 	{
-		game->ppos_y += game->diry * 15;
-		game->ppos_x += game->dirx * 15;
-		if (wall_colision(game))
+		if (wall_colision_up(game))
 		{
 			game->ppos_x = tempx;
 			game->ppos_y = tempy;
 		}
-		draw_character(game, 255);
-		game->xstart = 480;
-		cast_ray(game, 0);
+		else
+		{
+			game->ppos_x += game->dirx * MOVESPEED;
+			game->ppos_y += game->diry * MOVESPEED;
+			cast_rays2(game);
+		}
 	}
 	else if (keycode == DOWN)
 		move5(game, tempx, tempy);

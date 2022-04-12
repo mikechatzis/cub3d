@@ -6,100 +6,106 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/09 19:23:23 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/12 18:12:57 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	raystructinit(t_ray *ray, t_data *game)
+static void	raystructinit(t_ray *ray, t_data *game, int i)
 {
-	ray->mapx = game->ppos_x / 60;
-	ray->mapy = game->ppos_y / 60;
-	ray->deltadistx = fabs(1 / game->dirx);
-	if (!game->dirx)
+	ray->camerax = 2 * i / (double)(60) - 1;
+	//ray->camerax = 2 * i / (double)(60) - 1; FOR FASTER RAYCAST 
+	ray->raydirx = game->dirx + game->planex * ray->camerax;
+	ray->raydiry = game->diry + game->planey * ray->camerax;
+	ray->mapx = (int)game->ppos_x;
+	ray->mapy = (int)game->ppos_y;
+	if (!ray->raydirx)
 		ray->deltadistx = INFINITY;
-	ray->deltadisty = fabs(1 / game->diry);
-	if (!game->diry)
+	else
+		ray->deltadistx = fabs(1 / ray->raydirx);
+	if (!ray->raydiry)
 		ray->deltadisty = INFINITY;
+	else
+		ray->deltadisty = fabs(1 / ray->raydiry);
 	ray->hit = 0;
 }
 
 static void	rayvarsinit(t_ray *ray, t_data *game)
 {
-	if (game->dirx < 0)
+	if (ray->raydirx < 0)
 	{
 		ray->stepx = -1;
-		ray->sidedistx = (double)(game->ppos_x - ray->mapx) * ray->deltadistx;
+		ray->sidedistx = (game->ppos_x - ray->mapx) * ray->deltadistx;
 	}
 	else
 	{
 		ray->stepx = 1;
-		ray->sidedistx = (double)(ray->mapx + 60 - game->ppos_x) * ray->deltadistx;
+		ray->sidedistx = (ray->mapx + 1.0 - game->ppos_x) * ray->deltadistx;
 	}
-	if (game->diry < 0)
+	if (ray->raydiry < 0)
 	{
 		ray->stepy = -1;
-		ray->sidedisty = (double)(game->ppos_y - ray->mapy) * ray->deltadisty;
+		ray->sidedisty = (game->ppos_y - ray->mapy) * ray->deltadisty;
 	}
 	else
 	{
 		ray->stepy = 1;
-		ray->sidedisty = (double)(ray->mapy + 60 - game->ppos_y) * ray->deltadisty;
+		ray->sidedisty = (ray->mapy + 1.0 - game->ppos_y) * ray->deltadisty;
 	}
-	printf("%lf    %lf  \n", ray->sidedistx, ray->sidedisty);
 }
 
-void	cast_ray(t_data *game, size_t i)
+static void	calc_ray_dist(t_data *game, t_ray *ray, int i)
 {
-	t_ray	ray;
-
-	raystructinit(&ray, game);
-	rayvarsinit(&ray, game);
-	while (!ray.hit)
+	if (!ray->side)
 	{
-		if (ray.sidedistx < ray.sidedisty)
+		ray->perpwalldist = (ray->sidedistx - ray->deltadistx);
+		// draw_3dmap(game, &ray, (int)(i + game->ppos_y
+			// + ray->perpwalldist * ray->raydirx));
+	}
+	else
+	{
+		ray->perpwalldist = (ray->sidedisty - ray->deltadisty);
+		// draw_3dmap(game, &ray, (int)(i + game->ppos_x
+			// + ray->perpwalldist * ray->raydirx));
+	}
+}
+
+static void	find_wall(t_data *game, t_ray *ray)
+{
+	while (!ray->hit)
+	{
+		if (ray->sidedistx < ray->sidedisty)
 		{
-			ray.sidedistx += ray.deltadistx;
-			ray.mapx += ray.stepx;
-			ray.side = 0;
+			ray->sidedistx += ray->deltadistx;
+			ray->mapx += ray->stepx;
+			ray->side = 0;
 		}
 		else
 		{
-			ray.sidedisty += ray.deltadisty;
-			ray.mapy += ray.stepy;
-			ray.side = 1;
+			ray->sidedisty += ray->deltadisty;
+			ray->mapy += ray->stepy;
+			ray->side = 1;
 		}
-		if (game->map[ray.mapy][ray.mapx] == '1')
-		{
-			printf("hit\n");
-			ray.hit = 1;
-		}
-		mlx_pixel_put(game->mlx, game->mlx_win, ray.mapx * 60, ray.mapy * 60, create_trgb(0, 0, 255, 0));
+		if (game->map[ray->mapy][ray->mapx] == '1')
+			ray->hit = 1;
 	}
-	if (!ray.side)
-		game->raylen = (int)fabs((ray.sidedistx - ray.deltadistx)
-				/ cos(0.005 * (i + 1)));
-	else
-		game->raylen = (int)fabs((ray.sidedisty - ray.deltadisty)
-				/ cos(0.005 * (i + 1)));
-	printf("%ld\n", game->raylen);
-	// draw_3dmap(game, &ray);
 }
 
-bool	wall_colision_ray(t_data *game)
+void	cast_rays2(t_data *game)
 {
-	size_t	i;
+	t_ray	ray;
+	int		i;
 
+	mlx_clear_window(game->mlx, game->mlx_win);
 	i = -1;
-	while (++i < 10)
+	while (++i < 60)
+	//while (++i < 60) FOR FASTER RAYCAST 
 	{
-		game->x = abs((int)(game->ppos_x + game->dirx * i) / 60);
-		game->y = abs((int)(game->ppos_y + game->diry * i) / 60);
-		if (game->map[game->y][game->x] == '1')
-			return (1);
-		// mlx_pixel_put(game->mlx, game->mlx_win, game->ppos_x + game->dirx * i,
-		// 	game->ppos_y + game->diry * i, create_trgb(0, 60, 0, 0));
+		raystructinit(&ray, game, i);
+		rayvarsinit(&ray, game);
+		find_wall(game, &ray);
+		calc_ray_dist(game, &ray, i);
+		draw_3dmap(game, &ray, (int)(i));
 	}
-	return (0);
 }
