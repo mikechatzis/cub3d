@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 21:15:10 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/12 20:35:44 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/13 15:29:44 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,36 +18,61 @@ static void	find_player(t_data *game, int x, int y)
 	game->ppos_y = y + 0.5;
 }
 
+static void	pick_pixel(t_data *game, t_ray *ray)
+{
+	double	wallx;
+
+	if (!ray->side)
+		wallx = game->ppos_y + ray->perpwalldist * ray->raydiry;
+	else
+		wallx = game->ppos_x + ray->perpwalldist * ray->raydirx;
+	wallx -= floor((wallx));
+	game->texx = (int)(wallx * (double)(game->tex_n->width));
+	if (ray->side == 0 && ray->raydirx > 0)
+		game->texx = game->tex_n->width - game->texx - 1;
+	if (ray->side == 1 && ray->raydiry < 0)
+		game->texx = game->tex_n->width - game->texx - 1;
+	game->step = 1.0 * game->tex_n->height / game->lineheight;
+	game->texpos = (game->linestart - SCREEN_H / 2
+			+ game->lineheight / 2) * game->step;
+}
+
+static void	pxls_in_img(t_data *game, int x, t_ray *ray)
+{
+	int	y;
+	int	rgb;
+	int	texy;
+
+	y = -1;
+	rgb = create_trgb(0, game->colors[3], game->colors[4], game->colors[5]);
+	while (++y <= game->linestart)
+		my_mlx_pixel_put(game, x, y, rgb);
+	y = -1;
+	while (++y < game->lineheight)
+	{
+		texy = (int)game->texpos & (game->tex_n->height - 1);
+		game->texpos += game->step;
+		my_mlx_pixel_put(game, x,
+			y + game->linestart, game->tex_n->px_clrs[texy
+			* game->tex_n->width + game->texx]);
+	}	
+	y -= 1;
+	rgb = create_trgb(0, game->colors[0], game->colors[1], game->colors[2]);
+	while (++y < SCREEN_H - game->linestart)
+		my_mlx_pixel_put(game, x,
+			y + game->linestart, rgb);
+}
+
 void	draw_3dmap(t_data *game, t_ray *ray, int x)
 {
-	int	lineheight;
-	int	linestart;
-	int	lineend;
-	int	y;
-
-	lineheight = SCREEN_H / ray->perpwalldist;
-	linestart = -lineheight / 2 + SCREEN_H / 2;
-	if (linestart < 0)
-		linestart = 0;
-	if (lineheight > SCREEN_H)
-		lineheight = SCREEN_H;
-	y = -1;
-	// x * 8 in mlx_pixel_put FOR FASTER RAYCAST
-	while (++y <= linestart)
-		my_mlx_pixel_put(game, x,
-			y, create_trgb(0, game->colors[3],
-				game->colors[4], game->colors[5]));
-	y = -1;
-	while (++y < lineheight)
-		my_mlx_pixel_put(game, x,
-			y + linestart, create_trgb(0, 0, 0, 0));
-	y -= 1;
-	while (++y < SCREEN_H - linestart)
-		my_mlx_pixel_put(game, x,
-			y + linestart, create_trgb(0, game->colors[0],
-				game->colors[1], game->colors[2]));
-	mlx_put_image_to_window(game->mlx_win,
-		game->mlx_win, game->frame->img, 0, 0);
+	game->lineheight = SCREEN_H / ray->perpwalldist;
+	game->linestart = -game->lineheight / 2 + SCREEN_H / 2;
+	if (game->linestart < 0)
+		game->linestart = 0;
+	if (game->lineheight > SCREEN_H)
+		game->lineheight = SCREEN_H;
+	pick_pixel(game, ray);
+	pxls_in_img(game, x, ray);
 }
 
 void	init_map3d(t_data *game)

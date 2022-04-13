@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/12 20:32:32 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/13 15:03:39 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define ROTSPEED 0.3
 # define SCREEN_W 640
 # define SCREEN_H 480
+# define TEX_W 64
+# define TEX_H 64
 
 typedef struct s_img
 {
@@ -42,6 +44,9 @@ typedef struct s_img
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	int		width;
+	int		height;
+	int		*px_clrs;
 }t_img;
 
 typedef struct s_ray
@@ -67,6 +72,10 @@ typedef struct s_data
 	void	*mlx;
 	void	*mlx_win;
 	t_img	*frame;
+	t_img	*tex_n;
+	t_img	*tex_s;
+	t_img	*tex_e;
+	t_img	*tex_w;
 	int		lc;
 	size_t	l_max_len;
 	int		player;
@@ -78,6 +87,8 @@ typedef struct s_data
 	char	pdir;
 	char	**textures;
 	int		colors[6];
+	int		linestart;
+	int		lineheight;
 	int		x;
 	int		y;
 	double	dirx;
@@ -86,6 +97,9 @@ typedef struct s_data
 	double	planex;
 	double	planey;
 	double	oldplanex;
+	double	step;
+	double	texpos;
+	int		texx;
 }				t_data;
 
 void	cast_rays2(t_data *game);
@@ -98,6 +112,7 @@ void	direction_init(t_data *game);
 
 //img_init
 void	img_init(t_data *game);
+void	save_textures(t_data *game);
 
 // make_map.c
 int		assign_map(t_data *game, int mfd);
@@ -133,6 +148,7 @@ void	invalid_top(void);
 void	invalid_map_values(void);
 void	invalid_map(t_data *game);
 void	free_map(t_data *game);
+int		finish_game(t_data *game);
 
 // error2.c
 void	freedirec2(t_data *game);

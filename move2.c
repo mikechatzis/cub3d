@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/12 20:17:30 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/13 11:41:49 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	raystructinit(t_ray *ray, t_data *game, int i)
 {
 	ray->camerax = 2 * i / (double)(SCREEN_W) - 1;
-	//ray->camerax = 2 * i / (double)(60) - 1; FOR FASTER RAYCAST 
 	ray->raydirx = game->dirx + game->planex * ray->camerax;
 	ray->raydiry = game->diry + game->planey * ray->camerax;
 	ray->mapx = (int)game->ppos_x;
@@ -60,14 +59,10 @@ static void	calc_ray_dist(t_data *game, t_ray *ray, int i)
 	if (!ray->side)
 	{
 		ray->perpwalldist = (ray->sidedistx - ray->deltadistx);
-		// draw_3dmap(game, &ray, (int)(i + game->ppos_y
-			// + ray->perpwalldist * ray->raydirx));
 	}
 	else
 	{
 		ray->perpwalldist = (ray->sidedisty - ray->deltadisty);
-		// draw_3dmap(game, &ray, (int)(i + game->ppos_x
-			// + ray->perpwalldist * ray->raydirx));
 	}
 }
 
@@ -97,10 +92,8 @@ void	cast_rays2(t_data *game)
 	t_ray	ray;
 	int		i;
 
-	// mlx_clear_window(game->mlx, game->mlx_win);
 	i = -1;
 	while (++i < SCREEN_W)
-	//while (++i < 60) FOR FASTER RAYCAST 
 	{
 		raystructinit(&ray, game, i);
 		rayvarsinit(&ray, game);
@@ -108,4 +101,10 @@ void	cast_rays2(t_data *game)
 		calc_ray_dist(game, &ray, i);
 		draw_3dmap(game, &ray, (int)(i));
 	}
+	mlx_put_image_to_window(game->mlx_win,
+		game->mlx_win, game->frame->img, 0, 0);
+	// i = -1;
+	// while (++i < SCREEN_W)
+	// 	mlx_put_image_to_window(game->mlx_win,
+	// 		game->mlx_win, game->tex_n, i, game->linestart);
 }
