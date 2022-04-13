@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 21:15:10 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/13 15:29:44 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/13 15:55:59 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,11 @@ static void	pxls_in_img(t_data *game, int x, t_ray *ray)
 	{
 		texy = (int)game->texpos & (game->tex_n->height - 1);
 		game->texpos += game->step;
+		rgb = game->tex_n->px_clrs[texy * game->tex_n->width + game->texx];
+		if (ray->side)
+			rgb = (rgb >> 1) & 8355711;
 		my_mlx_pixel_put(game, x,
-			y + game->linestart, game->tex_n->px_clrs[texy
-			* game->tex_n->width + game->texx]);
+			y + game->linestart, rgb);
 	}	
 	y -= 1;
 	rgb = create_trgb(0, game->colors[0], game->colors[1], game->colors[2]);
