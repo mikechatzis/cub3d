@@ -6,31 +6,18 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/13 15:03:58 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/13 15:48:03 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static void	get_pixel_colors(t_img *img)
+void	free_at_image(t_img *img, t_data *game)
 {
-	size_t	i;
-	int		x;
-	int		y;
-
-	x = -1;
-	while (++x < img->width)
-	{
-		y = -1;
-		while (++y < img->height)
-		{
-			i = img->width * y + x;
-			img->px_clrs[i] = (int)img->addr[i];
-		}
-	}
-// 	i = -1;
-// 	while (++i < img->width * img->height)
-// 		img->px_clrs[i] = (int)img->addr[i];
+	free(img);
+	free_map(game);
+	freedirec2(game);
+	exit(1);
 }
 
 static void	save_textures2(t_img *img, t_data *game, int i)
@@ -43,7 +30,7 @@ static void	save_textures2(t_img *img, t_data *game, int i)
 	if (!img->img)
 	{
 		printf("Error: texture %s\n", game->textures[i]);
-		finish_game(game);
+		free_at_image(img, game);
 	}
 	img->px_clrs = (int *)mlx_get_data_addr(img->img,
 			&img->bits_per_pixel, &img->line_length,
@@ -51,22 +38,21 @@ static void	save_textures2(t_img *img, t_data *game, int i)
 	if (!img->addr)
 	{
 		printf("Error: data address\n");
-		finish_game(game);
+		free_at_image(img, game);
 	}
 	img->width = width;
 	img->height = height;
-	// get_pixel_colors(img);
 }
 
 void	save_textures(t_data *game)
 {
 	game->tex_n = malloc(sizeof(t_img));
-	game->tex_s = malloc(sizeof(t_img));
-	game->tex_e = malloc(sizeof(t_img));
-	game->tex_w = malloc(sizeof(t_img));
 	save_textures2(game->tex_n, game, 0);
+	game->tex_s = malloc(sizeof(t_img));
 	save_textures2(game->tex_s, game, 1);
+	game->tex_e = malloc(sizeof(t_img));
 	save_textures2(game->tex_e, game, 2);
+	game->tex_w = malloc(sizeof(t_img));
 	save_textures2(game->tex_w, game, 3);
 }
 

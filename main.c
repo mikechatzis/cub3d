@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/13 13:12:55 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/13 15:41:29 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,6 @@ int	finish_game(t_data *game)
 {
 	free_map(game);
 	freedirec2(game);
-	mlx_destroy_image(game->mlx, game->tex_n->img);
-	mlx_destroy_image(game->mlx, game->tex_s->img);
-	mlx_destroy_image(game->mlx, game->tex_e->img);
-	mlx_destroy_image(game->mlx, game->tex_w->img);
-	free(game->tex_n);
-	free(game->tex_s);
-	free(game->tex_e);
-	free(game->tex_w);
 	write(1, "Game closed!\n", 13);
 	exit(0);
 }
