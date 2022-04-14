@@ -6,24 +6,53 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:16:53 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/12 18:46:19 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/14 20:36:52 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static char	*skip_space(char *s)
+bool	get_textures_n_colors3(t_data *game, char *line)
 {
-	while (*s == ' ')
-		s++;
-	return (s);
+	bool	b;
+
+	b = 1;
+	if (!ft_strncmp(line, "C", 1) && (line[1] == ' ' || line[1] == '\t'))
+	{
+		line += 1;
+		line = skip_tab_n_space(line);
+		b = get_colors(game, line, 6);
+		game->c = 1;
+	}
+	else if (!ft_strncmp(line, "EA", 2) && (line[2] == ' ' || line[2] == '\t'))
+	{
+		line += 2;
+		line = skip_tab_n_space(line);
+		if (game->textures[3])
+			free(game->textures[3]);
+		game->textures[3] = ft_substr(line, 0, ft_strlen(line) - 1);
+	}
+	return (b);
+}
+
+bool	check_if_map(t_data *game, char *temp)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+		if (!game->textures[i])
+			return (0);
+	if (!game->f || !game->c)
+		return (0);
+	return (1);
 }
 
 static bool	isnotnum(char *s)
 {
 	while (*s)
 	{
-		if (!ft_isdigit(*s))
+		if (!ft_isdigit(*s) && *s != ' ' && *s != '\t')
 			return (false);
 		s++;
 	}
@@ -37,7 +66,6 @@ static bool	loop(t_data *game, char **clrs, short k)
 	j = -1;
 	while (clrs[++j])
 	{
-		clrs[j] = skip_space(clrs[j]);
 		if (ft_atoi(clrs[j]) < 0 || ft_atoi(clrs[j]) > 255
 			|| !isnotnum(clrs[j]))
 			return (false);
@@ -49,21 +77,13 @@ static bool	loop(t_data *game, char **clrs, short k)
 bool	get_colors(t_data *game, char *line, int i)
 {
 	char	**clrs;
-	short	j;
 	short	k;
 
-	j = -1;
 	if (i == 5)
 		k = 0;
 	else
 		k = 3;
 	line[ft_strlen(line) - 1] = 0;
-	line = skip_space(line);
-	if ((i == 5 && ft_strncmp(line, "F", 1))
-		|| (i == 6 && ft_strncmp(line, "C", 1)) || line[1] != ' ')
-		return (false);
-	line++;
-	line = skip_space(line);
 	clrs = ft_split(line, ',');
 	if (ft_dstrlen(clrs) != 3 || !loop(game, clrs, k))
 	{

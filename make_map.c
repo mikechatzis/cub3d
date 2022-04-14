@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   make_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:40:41 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/06 14:26:40 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/14 20:22:50 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"	
 
-static void	get_to_map(int mfd)
+static void	get_to_map(t_data *game, int mfd)
 {
 	int		i;
 	char	*temp;
 
 	i = -1;
-	while (++i < 8)
+	while (++i < game->ltm - 1)
 	{
 		temp = get_next_line(mfd);
 		free(temp);
@@ -55,7 +55,7 @@ static void	make_array(t_data *game)
 	len = 0;
 	game->map = ft_calloc(game->lc + 1, sizeof(char *));
 	mfd = open(game->map_file, O_RDONLY);
-	get_to_map(mfd);
+	get_to_map(game, mfd);
 	temp = get_next_line(mfd);
 	i = 0;
 	while (temp)
@@ -72,13 +72,13 @@ static int	line_val_check(t_data *game, char *line)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	if (line[i] == '\n')
 	{
 		free(line);
 		return (0);
 	}
-	while (line[i] && line[i] != '\n')
+	while (line[++i] && line[i] != '\n')
 	{
 		if (line[i] == 'N' || line[i] == 'E'
 			|| line[i] == 'S' || line[i] == 'W')
@@ -89,8 +89,10 @@ static int	line_val_check(t_data *game, char *line)
 			++game->player;
 		}
 		else if (line[i] != '1' && line[i] != '0' && line[i] != ' ')
+		{
+			free(line);
 			return (0);
-		i++;
+		}
 	}
 	return (1);
 }
@@ -99,6 +101,9 @@ int	assign_map(t_data *game, int mfd)
 {
 	char	*temp;
 
+	close(mfd);
+	mfd = open(game->map_file, O_RDONLY);
+	get_to_map(game, mfd);
 	game->lc = 0;
 	game->player = 0;
 	temp = get_next_line(mfd);

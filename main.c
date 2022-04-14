@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/13 15:41:29 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/14 20:39:06 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static bool	is_dir(const char *path)
 
 int	finish_game(t_data *game)
 {
-	free_map(game);
+	free_map(game, 1);
 	freedirec2(game);
 	write(1, "Game closed!\n", 13);
 	exit(0);
@@ -40,29 +40,27 @@ static int	key_hook(int keycode, t_data *game)
 static int	arg_check(t_data *game, int mfd)
 {
 	char	*temp;
-	int		i;
 	bool	b;
 
-	i = -1;
+	b = 1;
 	if (!ft_strncmp(game->map_file
 			+ (ft_strlen(game->map_file) - 5), ".cub", 5))
 		return (0);
-	while (++i <= 7)
+	while (b)
 	{
-		temp = get_next_line(mfd);
-		if (i <= 3 && ft_strcmp(temp, "\n"))
-			b = get_textures(game, temp, i);
-		else if (i == 5 || i == 6 && ft_strcmp(temp, "\n"))
-			b = get_colors(game, temp, i);
-		else if (i >= 0 && i <= 3)
+		temp = skip_empty_lines(game, mfd, temp);
+		if (!check_validity(temp))
 		{
 			free(temp);
-			return (0);
+			break ;
 		}
+		else
+			b = get_textures_n_colors(game, temp);
 		free(temp);
-		if (!b)
-			return (0);
 	}
+	b = check_if_map(game, temp);
+	if (!b)
+		return (0);
 	return (1);
 }
 
@@ -73,8 +71,8 @@ int	main(int argc, char **argv)
 
 	initialize(&game, argv);
 	mfd = open(game.map_file, O_RDONLY);
-	if (argc != 2 || !arg_check(&game, mfd)
-		|| mfd <= 0 || is_dir(game.map_file))
+	if (argc != 2 || mfd <= 0 || is_dir(game.map_file)
+		|| !arg_check(&game, mfd))
 		invalid_arg(&game);
 	if (!assign_map(&game, mfd))
 		invalid_map_values();

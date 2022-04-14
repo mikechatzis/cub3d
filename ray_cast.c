@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   move2.c                                            :+:      :+:    :+:   */
+/*   ray_cast.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/13 11:41:49 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/14 17:00:30 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,4 @@ void	cast_rays2(t_data *game)
 	}
 	mlx_put_image_to_window(game->mlx_win,
 		game->mlx_win, game->frame->img, 0, 0);
-	// i = -1;
-	// while (++i < SCREEN_W)
-	// 	mlx_put_image_to_window(game->mlx_win,
-	// 		game->mlx_win, game->tex_n, i, game->linestart);
 }

@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/13 15:03:39 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/14 20:38:54 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # define ESC 53
 # define STRAFE_L 123
 # define STRAFE_R 124
-# define MOVESPEED 0.15
-# define ROTSPEED 0.3
+# define MOVESPEED 0.10
+# define ROTSPEED 0.2
 # define SCREEN_W 640
 # define SCREEN_H 480
 # define TEX_W 64
@@ -69,6 +69,9 @@ typedef struct s_ray
 
 typedef struct s_data
 {	
+	bool	f;
+	bool	c;
+	int		ltm;
 	void	*mlx;
 	void	*mlx_win;
 	t_img	*frame;
@@ -85,7 +88,7 @@ typedef struct s_data
 	double	ppos_x;
 	double	ppos_y;
 	char	pdir;
-	char	**textures;
+	char	*textures[4];
 	int		colors[6];
 	int		linestart;
 	int		lineheight;
@@ -93,16 +96,19 @@ typedef struct s_data
 	int		y;
 	double	dirx;
 	double	diry;
-	double	olddirx;
+	double	odirx;
 	double	planex;
 	double	planey;
-	double	oldplanex;
+	double	oplanex;
 	double	step;
 	double	texpos;
 	int		texx;
 }				t_data;
 
 void	cast_rays2(t_data *game);
+
+// textures.c
+void	*choose_tex(t_data *game, t_ray *ray);
 
 // init.c
 size_t	len_no_n(char *s);
@@ -130,11 +136,11 @@ void	draw_3dmap(t_data *game, t_ray *ray, int x);
 // move.c
 void	move(t_data *game, int keycode);
 void	cast_rays(t_data *game);
-bool	wall_colision_ray(t_data *game);
-bool	wall_colision_up(t_data *game);
-bool	wall_colision_down(t_data *game);
-bool	wall_colision_left(t_data *game);
-bool	wall_colision_right(t_data *game);
+bool	wall_collision_ray(t_data *game);
+bool	wall_collision_up(t_data *game);
+bool	wall_collision_down(t_data *game);
+bool	wall_collision_left(t_data *game);
+bool	wall_collision_right(t_data *game);
 
 // move2.c
 void	cast_ray(t_data *game, size_t i);
@@ -143,16 +149,21 @@ void	cast_ray(t_data *game, size_t i);
 int		check_map(t_data *game);
 
 // error.c
+char	*skip_tab_n_space(char *s);
+char	*skip_empty_lines(t_data *game, int mfd, char *temp);
 void	invalid_arg(t_data *game);
 void	invalid_top(void);
 void	invalid_map_values(void);
 void	invalid_map(t_data *game);
-void	free_map(t_data *game);
+void	free_map(t_data *game, int check);
 int		finish_game(t_data *game);
+bool	get_textures_n_colors3(t_data *game, char *line);
+bool	check_if_map(t_data *game, char *temp);
 
 // error2.c
 void	freedirec2(t_data *game);
-bool	get_textures(t_data *game, char const *line, int i);
+bool	get_textures_n_colors(t_data *game, char *line);
+bool	check_validity(char *temp);
 
 // error3.c
 bool	get_colors(t_data *game, char *line, int i);

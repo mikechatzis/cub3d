@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 21:15:10 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/13 15:55:59 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/14 16:59:45 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,29 @@ static void	find_player(t_data *game, int x, int y)
 	game->ppos_y = y + 0.5;
 }
 
-static void	pick_pixel(t_data *game, t_ray *ray)
+static void	*pick_pixel(t_data *game, t_ray *ray)
 {
 	double	wallx;
+	t_img	*tex;
 
+	tex = choose_tex(game, ray);
 	if (!ray->side)
 		wallx = game->ppos_y + ray->perpwalldist * ray->raydiry;
 	else
 		wallx = game->ppos_x + ray->perpwalldist * ray->raydirx;
 	wallx -= floor((wallx));
-	game->texx = (int)(wallx * (double)(game->tex_n->width));
+	game->texx = (int)(wallx * (double)(tex->width));
 	if (ray->side == 0 && ray->raydirx > 0)
-		game->texx = game->tex_n->width - game->texx - 1;
+		game->texx = tex->width - game->texx - 1;
 	if (ray->side == 1 && ray->raydiry < 0)
-		game->texx = game->tex_n->width - game->texx - 1;
-	game->step = 1.0 * game->tex_n->height / game->lineheight;
+		game->texx = tex->width - game->texx - 1;
+	game->step = 1.0 * tex->height / game->lineheight;
 	game->texpos = (game->linestart - SCREEN_H / 2
 			+ game->lineheight / 2) * game->step;
+	return (tex);
 }
 
-static void	pxls_in_img(t_data *game, int x, t_ray *ray)
+static void	pxls_in_img(t_data *game, int x, t_ray *ray, t_img *img)
 {
 	int	y;
 	int	rgb;
@@ -50,9 +53,9 @@ static void	pxls_in_img(t_data *game, int x, t_ray *ray)
 	y = -1;
 	while (++y < game->lineheight)
 	{
-		texy = (int)game->texpos & (game->tex_n->height - 1);
+		texy = (int)game->texpos & (img->height - 1);
 		game->texpos += game->step;
-		rgb = game->tex_n->px_clrs[texy * game->tex_n->width + game->texx];
+		rgb = img->px_clrs[texy * img->width + game->texx];
 		if (ray->side)
 			rgb = (rgb >> 1) & 8355711;
 		my_mlx_pixel_put(game, x,
@@ -73,8 +76,7 @@ void	draw_3dmap(t_data *game, t_ray *ray, int x)
 		game->linestart = 0;
 	if (game->lineheight > SCREEN_H)
 		game->lineheight = SCREEN_H;
-	pick_pixel(game, ray);
-	pxls_in_img(game, x, ray);
+	pxls_in_img(game, x, ray, pick_pixel(game, ray));
 }
 
 void	init_map3d(t_data *game)
