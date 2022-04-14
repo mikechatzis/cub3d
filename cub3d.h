@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/12 11:35:54 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/14 13:16:13 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,24 @@
 # define ESC 53
 # define STRAFE_L 123
 # define STRAFE_R 124
-# define MOVESPEED 0.15
-# define ROTSPEED 0.1
-# define SCREEN_W 480
+# define MOVESPEED 0.10
+# define ROTSPEED 0.2
+# define SCREEN_W 640
 # define SCREEN_H 480
-# define PI 3.14159265359
+# define TEX_W 64
+# define TEX_H 64
+
+typedef struct s_img
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+	int		*px_clrs;
+}t_img;
 
 typedef struct s_ray
 {
@@ -58,6 +71,11 @@ typedef struct s_data
 {	
 	void	*mlx;
 	void	*mlx_win;
+	t_img	*frame;
+	t_img	*tex_n;
+	t_img	*tex_s;
+	t_img	*tex_e;
+	t_img	*tex_w;
 	int		lc;
 	size_t	l_max_len;
 	int		player;
@@ -69,23 +87,35 @@ typedef struct s_data
 	char	pdir;
 	char	**textures;
 	int		colors[6];
+	int		linestart;
+	int		lineheight;
 	int		x;
 	int		y;
 	double	dirx;
 	double	diry;
 	double	olddirx;
-	int		xstart;
 	double	planex;
 	double	planey;
 	double	oldplanex;
+	double	step;
+	double	texpos;
+	int		texx;
 }				t_data;
 
 void	cast_rays2(t_data *game);
 
+// textures.c
+void	*choose_tex(t_data *game, t_ray *ray);
+
 // init.c
 size_t	len_no_n(char *s);
+void	my_mlx_pixel_put(t_data *game, int x, int y, int color);
 void	initialize(t_data *game, char **argv);
 void	direction_init(t_data *game);
+
+//img_init
+void	img_init(t_data *game);
+void	save_textures(t_data *game);
 
 // make_map.c
 int		assign_map(t_data *game, int mfd);
@@ -120,7 +150,8 @@ void	invalid_arg(t_data *game);
 void	invalid_top(void);
 void	invalid_map_values(void);
 void	invalid_map(t_data *game);
-void	free_map(t_data *game);
+void	free_map(t_data *game, int check);
+int		finish_game(t_data *game);
 
 // error2.c
 void	freedirec2(t_data *game);

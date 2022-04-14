@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/12 00:05:46 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/14 13:16:05 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ static bool	is_dir(const char *path)
 	return (S_ISDIR(path_stat.st_mode));
 }
 
-static int	finish_game(t_data *game)
+int	finish_game(t_data *game)
 {
-	free_map(game);
+	free_map(game, 1);
 	freedirec2(game);
 	write(1, "Game closed!\n", 13);
 	exit(0);
@@ -85,6 +85,7 @@ int	main(int argc, char **argv)
 	game.mlx = mlx_init();
 	game.mlx_win = mlx_new_window
 		(game.mlx, SCREEN_W, SCREEN_H, "cub3d");
+	img_init(&game);
 	init_map3d(&game);
 	cast_rays2(&game);
 	mlx_hook(game.mlx_win, 2, 0, key_hook, &game);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:16:53 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/03/27 16:15:41 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/14 13:17:05 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ void	invalid_map_values(void)
 
 void	invalid_map(t_data *game)
 {
-	free_map(game);
+	free_map(game, 0);
 	write(1, "Error\nInvalid map.\n", 20);
 	exit(0);
 }
 
-void	free_map(t_data *game)
+void	free_map(t_data *game, int check)
 {
 	int	i;
 
@@ -46,4 +46,10 @@ void	free_map(t_data *game)
 	while (++i < game->lc)
 		free(game->map[i]);
 	free(game->map);
+	if (check)
+	{
+		mlx_destroy_window(game->mlx, game->mlx_win);
+		mlx_destroy_image(game->mlx, game->frame->img);	
+	}
+	free(game->frame);
 }

@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/11 23:49:21 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/13 15:45:14 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	my_mlx_pixel_put(t_data *game, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = game->frame->addr + (y * game->frame->line_length
+			+ x * (game->frame->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
+}
 
 size_t	len_no_n(char *s)
 {
@@ -62,7 +71,7 @@ void	direction_init(t_data *game)
 
 void	initialize(t_data *game, char **argv)
 {
-	game->xstart = 480;
+	game->frame = malloc(sizeof(t_img *));
 	game->l_max_len = 0;
 	game->map_file = argv[1];
 	game->textures = ft_calloc(4, sizeof(char *));
