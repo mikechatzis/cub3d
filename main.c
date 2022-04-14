@@ -6,7 +6,7 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/14 13:16:05 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/14 13:38:24 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int	main(int argc, char **argv)
 
 	initialize(&game, argv);
 	mfd = open(game.map_file, O_RDONLY);
-	if (argc != 2 || !arg_check(&game, mfd)
-		|| mfd <= 0 || is_dir(game.map_file))
+	if (argc != 2 || mfd <= 0 || is_dir(game.map_file)
+		|| !arg_check(&game, mfd))
 		invalid_arg(&game);
 	if (!assign_map(&game, mfd))
 		invalid_map_values();

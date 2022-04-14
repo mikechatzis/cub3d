@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
+/*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/12 18:07:24 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/14 13:57:18 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	move5(t_data *game, double tempx, double tempy)
 {
-	if (wall_colision_down(game))
+	if (wall_collision_down(game))
 	{
 		game->ppos_x = tempx;
 		game->ppos_y = tempy;
@@ -29,7 +29,7 @@ void	move5(t_data *game, double tempx, double tempy)
 
 void	move4(t_data *game, double tempx, double tempy)
 {
-	if (wall_colision_left(game))
+	if (wall_collision_left(game))
 	{
 		game->ppos_x = tempx;
 		game->ppos_y = tempy;
@@ -51,7 +51,7 @@ void	move3(t_data *game, int keycode)
 	tempy = game->ppos_y;
 	if (keycode == RIGHT)
 	{
-		if (wall_colision_right(game))
+		if (wall_collision_right(game))
 		{
 			game->ppos_x = tempx;
 			game->ppos_y = tempy;
@@ -71,29 +71,25 @@ static void	move2(t_data *game, int keycode)
 {
 	if (keycode == STRAFE_R)
 	{
-		game->olddirx = game->dirx;
-		game->dirx = game->dirx * cos(ROTSPEED)
-			- game->diry * sin(ROTSPEED);
-		game->diry = game->olddirx * sin(ROTSPEED)
-			+ game->diry * cos(ROTSPEED);
-		game->oldplanex = game->planex;
+		game->odirx = game->dirx;
+		game->dirx = game->dirx * cos(ROTSPEED) - game->diry * sin(ROTSPEED);
+		game->diry = game->odirx * sin(ROTSPEED) + game->diry * cos(ROTSPEED);
+		game->oplanex = game->planex;
 		game->planex = game->planex * cos(ROTSPEED)
 			- game->planey * sin(ROTSPEED);
-		game->planey = game->oldplanex * sin(ROTSPEED)
+		game->planey = game->oplanex * sin(ROTSPEED)
 			+ game->planey * cos(ROTSPEED);
 		cast_rays2(game);
 	}
 	if (keycode == STRAFE_L)
 	{
-		game->olddirx = game->dirx;
-		game->dirx = game->dirx * cos(-ROTSPEED)
-			- game->diry * sin(-ROTSPEED);
-		game->diry = game->olddirx * sin(-ROTSPEED)
-			+ game->diry * cos(-ROTSPEED);
-		game->oldplanex = game->planex;
+		game->odirx = game->dirx;
+		game->dirx = game->dirx * cos(-ROTSPEED) - game->diry * sin(-ROTSPEED);
+		game->diry = game->odirx * sin(-ROTSPEED) + game->diry * cos(-ROTSPEED);
+		game->oplanex = game->planex;
 		game->planex = game->planex * cos(-ROTSPEED)
 			- game->planey * sin(-ROTSPEED);
-		game->planey = game->oldplanex * sin(-ROTSPEED)
+		game->planey = game->oplanex * sin(-ROTSPEED)
 			+ game->planey * cos(-ROTSPEED);
 		cast_rays2(game);
 	}
@@ -109,7 +105,7 @@ void	move(t_data *game, int keycode)
 	tempy = game->ppos_y;
 	if (keycode == UP)
 	{
-		if (wall_colision_up(game))
+		if (wall_collision_up(game))
 		{
 			game->ppos_x = tempx;
 			game->ppos_y = tempy;

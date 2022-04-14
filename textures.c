@@ -6,12 +6,11 @@
 /*   By: ekraujin <ekraujin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 19:29:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/13 19:59:13 by ekraujin         ###   ########.fr       */
+/*   Updated: 2022/04/14 13:42:49 by ekraujin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 void	*choose_tex(t_data *game, t_ray *ray)
 {
