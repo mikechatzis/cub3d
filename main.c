@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/15 12:16:25 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/15 14:22:17 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ int	arg_check(t_data *game, int mfd)
 	while (b)
 	{
 		temp = skip_empty_lines(game, mfd, temp);
+		if (!temp)
+		{
+			b = 0;
+			break ;
+		}
 		if (!check_validity(temp))
 		{
 			free(temp);
@@ -59,9 +64,7 @@ int	arg_check(t_data *game, int mfd)
 		free(temp);
 	}
 	b = check_if_map(game, temp);
-	if (!b)
-		return (0);
-	return (1);
+	return (b);
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:12:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/14 20:34:35 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/15 14:21:59 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*skip_empty_lines(t_data *game, int mfd, char *temp)
 	{
 		i = 0;
 		temp = get_next_line(mfd);
+		if (!temp)
+			return (NULL);
 		game->ltm++;
 		while (temp[i] == ' ' || temp[i] == '\t' || temp[i] == '\n')
 			i++;
