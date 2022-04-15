@@ -6,7 +6,7 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 20:14:39 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/14 20:38:54 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/15 12:07:00 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,8 @@ size_t	len_no_n(char *s);
 void	my_mlx_pixel_put(t_data *game, int x, int y, int color);
 void	initialize(t_data *game, char **argv);
 void	direction_init(t_data *game);
+void	init_check(t_data *game, int argc, int mfd);
+int		arg_check(t_data *game, int mfd);
 
 //img_init
 void	img_init(t_data *game);

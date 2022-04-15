@@ -6,11 +6,33 @@
 /*   By: mchatzip <mchatzip@student.42wolfsburg.de> +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 19:29:33 by ekraujin          #+#    #+#             */
-/*   Updated: 2022/04/14 20:38:43 by mchatzip         ###   ########.fr       */
+/*   Updated: 2022/04/15 12:06:25 by mchatzip         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static bool	is_dir(const char *path)
+{
+	struct stat	path_stat;
+
+	stat(path, &path_stat);
+	return (S_ISDIR(path_stat.st_mode));
+}
+
+void	init_check(t_data *game, int argc, int mfd)
+{
+	mfd = open(game->map_file, O_RDONLY);
+	if (argc != 2 || mfd <= 0 || is_dir(game->map_file)
+		|| !arg_check(game, mfd))
+		invalid_arg(game);
+	if (!assign_map(game, mfd))
+		invalid_map_values();
+	if (!check_map(game))
+		invalid_map(game);
+	close(mfd);
+	direction_init(game);
+}
 
 bool	check_validity(char *temp)
 {
